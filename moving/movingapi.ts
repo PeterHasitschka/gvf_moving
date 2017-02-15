@@ -4,7 +4,8 @@ import {GraphVisConfig} from "../gvfcore/components/graphvis/config";
 import {UiService} from "../gvfcore/services/ui.service";
 import {SideInfoPositions, SideInfoContentType, SideInfoModel} from "../gvfcore/components/app/sideinfo/sideinfomodel";
 import {MovingDataService} from "./movingdata.service";
-
+import {GvfApi} from "../gvfcore/api/gvfapi";
+import {CompleteMovingGraph} from "./graph/graphs/completegraph";
 
 
 export class MovingApi implements GvfPluginInterface {
@@ -43,9 +44,8 @@ export class MovingApi implements GvfPluginInterface {
 
     public runAfterInit() {
 
-        MovingDataService.getInstance().fetchData().then( () => {
-
-
+        MovingDataService.getInstance().fetchData().then(() => {
+            GvfApi.addPlane('Demo BIBSONOMY', CompleteMovingGraph);
         });
 
         // AfelData.getInstance().fetchData().then(() => {

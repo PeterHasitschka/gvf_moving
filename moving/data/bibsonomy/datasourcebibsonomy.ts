@@ -31,7 +31,9 @@ export class MovingDataSourceBibsonomy implements MovingDataSourceInterace {
             .then((r) => {
 
 
-                r.forEach((row) => {
+                r.forEach((row, idx) => {
+                    if (idx > 200)
+                        return;
 
                     let resourceId = parseInt(row['url']);
                     let resource = ResourceDataEntity.getObject(resourceId);
@@ -55,12 +57,8 @@ export class MovingDataSourceBibsonomy implements MovingDataSourceInterace {
                     post.addConnection(postResConnection);
                     resource.addConnection(postResConnection);
 
-                    // let learner = new Learner(resultdata["id"], resultdata);
-                    // this.dataContainer.learners.push(learner);
-
                 });
                 //console.log("Fetched Learners:", this.data.learners);
-                console.log(ResourceDataEntity.getDataList(), TagDataEntity.getDataList(), PostDataEntity.getDataList());
             });
     }
 
