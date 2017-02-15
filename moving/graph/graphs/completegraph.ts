@@ -26,23 +26,36 @@ export class CompleteMovingGraph extends GraphAbstract {
             this.plane.getGraphScene().addObject(tagNode);
 
             let tagConn = t.getConnections();
-            console.log("Tag connections to post", tagConn.length);
             tagConn.forEach((c) => {
                 if (c.constructor !== PostTagConnection)
                     return;
 
                 let post = (<PostResourceConnection>c).getPost();
-                let postNode = new NodePost(0, 0, post, this.plane, {});
-                this.graphElements.push(postNode);
-                this.plane.getGraphScene().addObject(postNode);
+
+                /**
+                 * Be sure to create post node only once!
+                 */
+                let postNode:NodePost;
+                post.getRegisteredGraphElements().forEach((pn:NodePost) => {
+                    if (!postNode && pn.getPlane().getGraph() === this) {
+                        postNode = pn;
+                    }
+                });
+                if (!postNode) {
+                    postNode = new NodePost(0, 0, post, this.plane, {});
+                    this.graphElements.push(postNode);
+                    this.plane.getGraphScene().addObject(postNode);
+                }
 
                 let edge = new EdgeBasic(tagNode, postNode, this.plane);
+                postNode.addEdge(edge);
+                tagNode.addEdge(edge);
                 this.edges.push(edge);
                 this.plane.getGraphScene().addObject(edge);
             });
         });
 
-        console.log("created " + tags.length + " nodes");
+        console.log("created " + this.graphElements.length + " nodes");
 
 
         this.layout = new this.layoutClass(this.plane, this.graphElements, this.edges);

@@ -32,7 +32,7 @@ export class MovingDataSourceBibsonomy implements MovingDataSourceInterace {
 
 
                 r.forEach((row, idx) => {
-                    if (idx > 200)
+                    if (idx > 300)
                         return;
 
                     let resourceId = parseInt(row['url']);
