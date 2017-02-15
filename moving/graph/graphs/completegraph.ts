@@ -7,6 +7,9 @@ import {TagDataEntity} from "../data/tag";
 import {NodeTag} from "../nodes/nodetag";
 import {PostTagConnection} from "../data/connections/postTag";
 import {GraphLayoutFdlCompleteMovingGraph} from "../layouts/completegraphfdl";
+import {EdgeMovingPostTag} from "../edges/edgeposttag";
+import {ResourceDataEntity} from "../data/resource";
+import {NodeResource} from "../nodes/noderesource";
 export class CompleteMovingGraph extends GraphAbstract {
 
     constructor(protected plane:Plane) {
@@ -47,13 +50,28 @@ export class CompleteMovingGraph extends GraphAbstract {
                     this.plane.getGraphScene().addObject(postNode);
                 }
 
-                let edge = new EdgeBasic(tagNode, postNode, this.plane);
+                let edge = new EdgeMovingPostTag(tagNode, postNode, this.plane);
                 postNode.addEdge(edge);
                 tagNode.addEdge(edge);
                 this.edges.push(edge);
                 this.plane.getGraphScene().addObject(edge);
             });
         });
+
+
+        // let resources = ResourceDataEntity.getDataList();
+        // resources.forEach((r:ResourceDataEntity) => {
+        //
+        //     console.log(r.getConnections());
+        //
+        //     let resNode = new NodeResource(0,0,r,this.plane, {});
+        //     this.graphElements.push(resNode);
+        //     this.plane.getGraphScene().addObject(resNode);
+        //
+        //
+        // });
+
+
 
         console.log("created " + this.graphElements.length + " nodes");
 

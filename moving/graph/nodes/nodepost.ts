@@ -10,8 +10,8 @@ export class NodePost extends NodeAbstract {
         super(x, y, dataEntity, plane, options);
 
 
-        this.color = 0xff0000;
-        this.highlightColor = 0xffff00;
+        this.color = 0xaa0000;
+        this.highlightColor = 0xff9999;
         this.setColor(this.color);
         this.name = NodePost.IDENTIFIER;
     }

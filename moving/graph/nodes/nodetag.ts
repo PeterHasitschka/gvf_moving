@@ -10,8 +10,8 @@ export class NodeTag extends NodeAbstract {
         super(x, y, dataEntity, plane, options);
 
 
-        this.color = 0x00ff00;
-        this.highlightColor = 0xffff00;
+        this.color = 0x00aa00;
+        this.highlightColor = 0x99ff99;
         this.setColor(this.color);
         this.name = NodeTag.IDENTIFIER;
     }

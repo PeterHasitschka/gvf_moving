@@ -10,8 +10,8 @@ export class NodeResource extends NodeAbstract {
         super(x, y, dataEntity, plane, options);
 
 
-        this.color = 0x0000ff;
-        this.highlightColor = 0x00ffff;
+        this.color = 0x0000aa;
+        this.highlightColor = 0x9999ff;
         this.setColor(this.color);
         this.name = NodeResource.IDENTIFIER;
     }

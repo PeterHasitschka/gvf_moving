@@ -6,6 +6,8 @@ import {SideInfoPositions, SideInfoContentType, SideInfoModel} from "../gvfcore/
 import {MovingDataService} from "./movingdata.service";
 import {GvfApi} from "../gvfcore/api/gvfapi";
 import {CompleteMovingGraph} from "./graph/graphs/completegraph";
+import {GraphBipartiteProjectionAbstract} from "../gvfcore/components/graphvis/graphs/graphbipartiteprojectionabstract";
+import {PostsTagsGraphBPProj} from "./graph/graphs/poststags_bipartite";
 
 
 export class MovingApi implements GvfPluginInterface {
@@ -46,6 +48,7 @@ export class MovingApi implements GvfPluginInterface {
 
         MovingDataService.getInstance().fetchData().then(() => {
             GvfApi.addPlane('Demo BIBSONOMY', CompleteMovingGraph);
+            //GvfApi.addPlane('Bipartite Projection Posts -> Tags', PostsTagsGraphBPProj);
         });
 
         // AfelData.getInstance().fetchData().then(() => {
