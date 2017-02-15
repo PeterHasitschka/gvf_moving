@@ -3,6 +3,7 @@ import {GraphVisConfig} from "../gvfcore/components/graphvis/config";
 
 import {UiService} from "../gvfcore/services/ui.service";
 import {SideInfoPositions, SideInfoContentType, SideInfoModel} from "../gvfcore/components/app/sideinfo/sideinfomodel";
+import {MovingDataService} from "./movingdata.service";
 
 
 
@@ -42,6 +43,10 @@ export class MovingApi implements GvfPluginInterface {
 
     public runAfterInit() {
 
+        MovingDataService.getInstance().fetchData().then( () => {
+
+
+        });
 
         // AfelData.getInstance().fetchData().then(() => {
         //     GvfApi.addPlane('<i class="fa fa-book" aria-hidden="true"></i> <strong>Resource</strong> ' +
