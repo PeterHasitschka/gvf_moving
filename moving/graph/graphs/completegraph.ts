@@ -10,6 +10,7 @@ import {GraphLayoutFdlCompleteMovingGraph} from "../layouts/completegraphfdl";
 import {EdgeMovingPostTag} from "../edges/edgeposttag";
 import {ResourceDataEntity} from "../data/resource";
 import {NodeResource} from "../nodes/noderesource";
+import {UiService} from "../../../gvfcore/services/ui.service";
 export class CompleteMovingGraph extends GraphAbstract {
 
     constructor(protected plane:Plane) {
@@ -73,7 +74,7 @@ export class CompleteMovingGraph extends GraphAbstract {
 
 
 
-        console.log("created " + this.graphElements.length + " nodes");
+        UiService.consolelog("created " + this.graphElements.length + " nodes", this);
 
 
         this.layout = new this.layoutClass(this.plane, this.graphElements, this.edges);

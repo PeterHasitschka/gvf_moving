@@ -36,7 +36,6 @@ export class MovingDataService {
      */
     fetchData(cb?:Function) {
         let ret = this.dataSource.fetchDataFromServer();
-        console.log(this.data);
         return ret;
     }
 
