@@ -6,3 +6,4 @@ nbproject/
 /.idea
 npm-debug.log
 /packed/
+deploy.sh
