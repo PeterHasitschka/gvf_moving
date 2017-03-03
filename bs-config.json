@@ -1,3 +1,7 @@
 {
-  "browser" : ["google-chrome"]
+  "browser" : ["google-chrome"],
+  "port" : 3010,
+  "ui": {
+    "port": 3011
+  }
 }
