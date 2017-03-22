@@ -67,16 +67,15 @@ export class MovingApi implements GvfPluginInterface {
         // });
 
 
-        UiService.getInstance().addSideInfoElement(new SideInfoModel(
-            '<i class="fa fa-info-circle" aria-hidden="true"></i> MOVING',
-            SideInfoPositions.Left,
-            SideInfoContentType.Text,
-            {
-                text: 'Preliminary MOVING implementation of GVF'
-            }
-            )
-        );
-
+        // UiService.getInstance().addSideInfoElement(new SideInfoModel(
+        //     '<i class="fa fa-info-circle" aria-hidden="true"></i> MOVING',
+        //     SideInfoPositions.Left,
+        //     SideInfoContentType.Text,
+        //     {
+        //         text: 'Preliminary MOVING implementation of GVF'
+        //     }
+        //     )
+        // );
     }
 
 
