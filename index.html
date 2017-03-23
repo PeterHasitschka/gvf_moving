@@ -10,9 +10,89 @@
         gvfapi.registerEvent("initready", function (d) {
             console.log("INITREADY FROM DOWN SAYS:", d);
         });
+
+        /**
+         * Allows to work without moving platform.
+         * This data stub is that what we currently receive from the elasticsearch
+         */
+        var dummyData = {
+            "took": 10,
+            "timed_out": false,
+            "_shards": {"total": 5, "successful": 5, "failed": 0},
+            "hits": {
+                "total": 3,
+                "max_score": 2.9726036,
+                "hits": [{
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181243",
+                    "_score": 2.9726036,
+                    "_source": {
+                        "startDate": "2006-06-12",
+                        "endDate": "2007-02-25",
+                        "language": "en",
+                        "title": "Gaussian Process Basics",
+                        "URL": "http://videolectures.net/gpip06_mackay_gpb",
+                        "abstract": "How on earth can a plain old Gaussian distribution be useful for sophisticated regression and machine learning tasks?",
+                        "docType": "vl",
+                        "authors": {
+                            "affiliations": {"name": "University of Cambridge"},
+                            "name": "David MacKay",
+                            "email": "mackay@mrao.cam.ac.uk"
+                        },
+                        "keywords": "",
+                        "identifier": "588"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181237",
+                    "_score": 2.596332,
+                    "_source": {
+                        "startDate": "2007-07-02",
+                        "endDate": "2007-07-02",
+                        "language": "en",
+                        "title": "Basics of probability and statistics",
+                        "URL": "http://videolectures.net/bootcamp07_keller_bss",
+                        "abstract": "",
+                        "docType": "vl",
+                        "authors": {
+                            "affiliations": {"name": "Children's Hospital Boston"},
+                            "name": "Mikaela Keller",
+                            "email": "mikaela.keller@childrens.harvard.edu"
+                        },
+                        "keywords": "\"Linear Algebra Basics, Statistical Learning Theory, Probability and Statistics Basics\"",
+                        "identifier": "2763"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181432",
+                    "_score": 2.2347531,
+                    "_source": {
+                        "startDate": "2007-07-02",
+                        "endDate": "2007-07-02",
+                        "language": "en",
+                        "title": "\"Basics of algorithmics, computation models, formal languages\"",
+                        "URL": "http://videolectures.net/bootcamp07_higuera_bacm",
+                        "abstract": "\"Between the many theoretical computer science issues that one should be aware of when working in Machine learning, we visit, in this series of lectures, two. The first corresponds to strings, and through the study of strings, the questions about more complex structures like trees and graphs. We describe the main algorithmic and combinatorial questions about substrings and subsequences, and concentrate our attention to the topological questions: ordering strings and computing distances and kernels. The second is complexity. Not only should we be aware (and have a reasonable control of the techniques involved) of the usual barriers, but we should know something about classes for randomized algorithms. We also show some examples concerning Las Vegas and Monte Carlo techniques.\"",
+                        "docType": "vtt",
+                        "authors": {
+                            "affiliations": {"name": "University of Nantes"},
+                            "name": "Colin de la Higuera",
+                            "email": "cdlh@univ-nantes.fr"
+                        },
+                        "keywords": "TCS for Machine Learning Scientists",
+                        "identifier": "2762"
+                    }
+                }]
+            }
+        };
+
+
         document.addEventListener('DOMContentLoaded', function () {
             window.setTimeout(function () {
-                gvfapi.sendToGvf("dummyevent", "mytext");
+                gvfapi.sendToGvf("datafrommovingplatform", dummyData);
             }, 5000)
         }, false);
     </script>

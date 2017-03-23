@@ -62,4 +62,11 @@ export class MovingDataSourceBibsonomy implements MovingDataSourceInterace {
             });
     }
 
+
+    getLoadedData(){
+        return null;
+    }
+
+    setData(data){
+    }
 }
