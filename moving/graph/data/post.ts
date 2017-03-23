@@ -1,6 +1,5 @@
 
-
-import {BasicEntity} from "../../../../gvfcore/components/graphvis/data/databasicentity";
+import {BasicEntity} from "../../../gvfcore/components/graphvis/data/databasicentity";
 export class PostDataEntity extends BasicEntity {
 
 

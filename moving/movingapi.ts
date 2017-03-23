@@ -17,20 +17,16 @@ export class MovingPluginApi implements GvfPluginInterface {
 
         ApiService.getInstance().registerEvent("datafrommovingplatform", function(d){
             console.log("Got RAW SEARCH RESULT DATA FROM MOVINGPLATFORM:", d);
-
-            MovingDataService.getInstance().getDataSource().setData(d);
-
-            PluginApi.addPlane('MOVING Platform Search Results', CompleteMovingGraph);
-            //PluginApi.addPlane('Bipartite Projection Posts -> Tags', PostsTagsGraphBPProj);
         });
     }
 
 
     public runAfterInit() {
 
-        // MovingDataService.getInstance().fetchData().then(() => {
-        //
-        // });
+        MovingDataService.getInstance().fetchData().then(() => {
+            PluginApi.addPlane('Demo BIBSONOMY', CompleteMovingGraph);
+            //PluginApi.addPlane('Bipartite Projection Posts -> Tags', PostsTagsGraphBPProj);
+        });
 
     }
 

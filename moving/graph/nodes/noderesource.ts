@@ -1,6 +1,7 @@
-import {NodeAbstract} from "../../../../gvfcore/components/graphvis/graphs/nodes/nodeelementabstract";
-import {DataAbstract} from "../../../../gvfcore/components/graphvis/data/dataabstract";
-import {Plane} from "../../../../gvfcore/components/plane/plane";
+import {NodeAbstract} from "../../../gvfcore/components/graphvis/graphs/nodes/nodeelementabstract";
+import {DataAbstract} from "../../../gvfcore/components/graphvis/data/dataabstract";
+import {Plane} from "../../../gvfcore/components/plane/plane";
+import {GraphVisConfig} from "../../../gvfcore/components/graphvis/config";
 export class NodeResource extends NodeAbstract {
 
     public static IDENTIFIER = "Node Resource";
