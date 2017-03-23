@@ -2,7 +2,7 @@
 
 
 
-import {MovingApi} from "../moving/movingapi";
+import {MovingPluginApi} from "../moving/movingapi";
 export class GvfPlugins {
 
     /**
@@ -10,7 +10,7 @@ export class GvfPlugins {
      */
     static plugins = {
         onInit : [
-            MovingApi
+            MovingPluginApi
         ]
     }
 }

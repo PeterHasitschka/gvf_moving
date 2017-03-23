@@ -4,13 +4,14 @@ import {GraphVisConfig} from "../gvfcore/components/graphvis/config";
 import {UiService} from "../gvfcore/services/ui.service";
 import {SideInfoPositions, SideInfoContentType, SideInfoModel} from "../gvfcore/components/app/sideinfo/sideinfomodel";
 import {MovingDataService} from "./movingdata.service";
-import {GvfApi} from "../gvfcore/api/gvfapi";
+import {PluginApi} from "../gvfcore/api/gvfpluginapi";
 import {CompleteMovingGraph} from "./graph/graphs/completegraph";
 import {GraphBipartiteProjectionAbstract} from "../gvfcore/components/graphvis/graphs/graphbipartiteprojectionabstract";
 import {PostsTagsGraphBPProj} from "./graph/graphs/poststags_bipartite";
+import {ApiService} from "../gvfcore/services/apiservice";
 
 
-export class MovingApi implements GvfPluginInterface {
+export class MovingPluginApi implements GvfPluginInterface {
     constructor() {
         UiService.consolelog("Created MOVING API Plugin", this, null, 4);
         // GraphVisConfig.graphelements['resourcenode'] = {
@@ -41,28 +42,32 @@ export class MovingApi implements GvfPluginInterface {
         //     resourcegraph_background: 0x8888aa
         // }
 
+
+        ApiService.getInstance().registerEvent("dummyevent", function(d){
+            console.log("Got a dummyevent with the following data from above:", d);
+        });
     }
 
 
     public runAfterInit() {
 
         MovingDataService.getInstance().fetchData().then(() => {
-            GvfApi.addPlane('Demo BIBSONOMY', CompleteMovingGraph);
-            //GvfApi.addPlane('Bipartite Projection Posts -> Tags', PostsTagsGraphBPProj);
+            PluginApi.addPlane('Demo BIBSONOMY', CompleteMovingGraph);
+            //PluginApi.addPlane('Bipartite Projection Posts -> Tags', PostsTagsGraphBPProj);
         });
 
         // AfelData.getInstance().fetchData().then(() => {
-        //     GvfApi.addPlane('<i class="fa fa-book" aria-hidden="true"></i> <strong>Resource</strong> ' +
+        //     PluginApi.addPlane('<i class="fa fa-book" aria-hidden="true"></i> <strong>Resource</strong> ' +
         //         'Graph - Connecting resources with same learners ' + toleranceStr, ResourceGraph);
-        //     // GvfApi.addPlane('<i class="fa fa-book" aria-hidden="true"></i> <strong>Resource</strong> ' +
+        //     // PluginApi.addPlane('<i class="fa fa-book" aria-hidden="true"></i> <strong>Resource</strong> ' +
         //     //     'Graph - <strong>BIPARTITE PROJECTION</strong>', ResourceGraphBPProj);
-        //     GvfApi.addPlane('<i class="fa fa-user" aria-hidden="true"></i> <strong>Learner</strong> ' +
+        //     PluginApi.addPlane('<i class="fa fa-user" aria-hidden="true"></i> <strong>Learner</strong> ' +
         //         'Graph - Connecting learners who learn the same ' + toleranceStr, LearnerGraph);
-        //     // GvfApi.addPlane('<i class="fa fa-book" aria-hidden="true"></i> <strong>Learner</strong> ' +
+        //     // PluginApi.addPlane('<i class="fa fa-book" aria-hidden="true"></i> <strong>Learner</strong> ' +
         //     //     'Graph - <strong>BIPARTITE PROJECTION</strong>', LearnerGraphBPProj);
-        //     GvfApi.addPlane('<i class="fa fa-users" aria-hidden="true"></i> <strong>Learning</strong> Communities',
+        //     PluginApi.addPlane('<i class="fa fa-users" aria-hidden="true"></i> <strong>Learning</strong> Communities',
         //         LearningCommunityGraph);
-        //     GvfApi.addPlane('<i class="fa fa-users" aria-hidden="true"></i> <strong>Communication</strong> Communities',
+        //     PluginApi.addPlane('<i class="fa fa-users" aria-hidden="true"></i> <strong>Communication</strong> Communities',
         //         CommunicationCommunityGraph);
         // });
 

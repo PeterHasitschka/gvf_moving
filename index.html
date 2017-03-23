@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>GVF - MOVING</title>
+    <script src="gvfapi.js"></script>
+    <script>
+        var gvfapi = new GVFApi();
 
-
-
+        gvfapi.registerEvent("initready", function (d) {
+            console.log("INITREADY FROM DOWN SAYS:", d);
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            window.setTimeout(function () {
+                gvfapi.sendToGvf("dummyevent", "mytext");
+            }, 5000)
+        }, false);
+    </script>
 
 </head>
 <body>
