@@ -2,12 +2,10 @@ import {GvfPluginInterface} from "../plugins/plugininterface";
 import {GraphVisConfig} from "../gvfcore/components/graphvis/config";
 
 import {UiService} from "../gvfcore/services/ui.service";
-import {SideInfoPositions, SideInfoContentType, SideInfoModel} from "../gvfcore/components/app/sideinfo/sideinfomodel";
 import {MovingDataService} from "./movingdata.service";
 import {PluginApi} from "../gvfcore/api/gvfpluginapi";
 import {CompleteMovingGraph} from "./graph/graphs/completegraph";
-import {GraphBipartiteProjectionAbstract} from "../gvfcore/components/graphvis/graphs/graphbipartiteprojectionabstract";
-import {PostsTagsGraphBPProj} from "./graph/graphs/poststags_bipartite";
+
 import {ApiService} from "../gvfcore/services/apiservice";
 
 

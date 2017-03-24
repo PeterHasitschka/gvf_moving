@@ -4,7 +4,7 @@ import {GraphLayoutFdl} from "../../../gvfcore/components/graphvis/graphs/layout
 export class GraphLayoutFdlCompleteMovingGraph extends GraphLayoutFdl {
 
     protected NODE_REPULSION_FACTOR = 10;
-    protected EDGE_FORCE_FACTOR = 0.04;
+    protected EDGE_FORCE_FACTOR = 0.005;
     protected VELOCITY = 1.5;
     protected WALL_REPULSION_FACTOR = null;
     protected ITERATIONS = 300;
