@@ -15,6 +15,8 @@ export class MovingPluginApi implements GvfPluginInterface {
     constructor() {
         UiService.consolelog("Created MOVING API Plugin", this, null, 4);
 
+        GraphVisConfig.scene.backplane.color = "#FFFFFF";
+
         ApiService.getInstance().registerEvent("datafrommovingplatform", function (d) {
             console.log("Got RAW SEARCH RESULT DATA FROM MOVINGPLATFORM:", d);
             MovingDataService.getInstance().getDataSource().setData(d);

@@ -1,8 +1,8 @@
-import {NodeAbstract} from "../../../gvfcore/components/graphvis/graphs/nodes/nodeelementabstract";
+
 import {DataAbstract} from "../../../gvfcore/components/graphvis/data/dataabstract";
 import {Plane} from "../../../gvfcore/components/plane/plane";
-import {GraphVisConfig} from "../../../gvfcore/components/graphvis/config";
-export class NodeAuthor extends NodeAbstract {
+import {NodeMoving} from "./nodemoving";
+export class NodeAuthor extends NodeMoving {
 
     public static IDENTIFIER = "Node Author";
 
@@ -10,8 +10,8 @@ export class NodeAuthor extends NodeAbstract {
         super(x, y, dataEntity, plane, options);
 
 
-        this.color = 0x00aa00;
-        this.highlightColor = 0xff9999;
+        this.color = 0xffe6d5;
+        this.highlightColor = 0xffc4B3;
         this.setColor(this.color);
         this.name = NodeAuthor.IDENTIFIER;
     }

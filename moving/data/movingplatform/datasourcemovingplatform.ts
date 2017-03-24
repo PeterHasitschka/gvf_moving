@@ -39,9 +39,9 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
             /*
              Handling the current data structure which does not meet the common data model
              */
-            if (typeof  authorsData === "object") {
-                console.warn("The AUTHORS data does not meet the common data model. Object instead of array. " +
-                    "Handling it as a single author.");
+            if (!Array.isArray(authorsData)) {
+                console.warn("The AUTHORS data does not meet the common data model. Not an array. Assuming object " +
+                    "Handling it as a single author.", authorsData, typeof authorsData);
                 authorsData = [authorsData];
             }
 
@@ -56,5 +56,8 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
                 author.addConnection(docAuthorConnection);
             });
         });
+
+        console.log(DocumentDataEntity.getDataList());
+        console.log(AuthorDataEntity.getDataList());
     }
 }
