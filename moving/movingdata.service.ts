@@ -1,5 +1,6 @@
 import {DataService} from "../gvfcore/services/data.service";
-import {MovingDataSourceBibsonomy} from "./data/bibsonomy/datasourcebibsonomy";
+import {MovingDataSourceInterace} from "./data/datasource_interface";
+import {MovingDataSourceMovingPlatform} from "./data/movingplatform/datasourcemovingplatform";
 
 export class MovingDataService {
 
@@ -7,7 +8,7 @@ export class MovingDataService {
     static isCreating:Boolean = false;
     private http;
     private data;
-    private dataSource;
+    private dataSource:MovingDataSourceInterace;
 
     constructor() {
         this.data = {posts: [], tags: [], connections: []};
@@ -16,7 +17,7 @@ export class MovingDataService {
             return MovingDataService.getInstance();
         }
 
-        this.dataSource = new MovingDataSourceBibsonomy(this.data);
+        this.dataSource = new MovingDataSourceMovingPlatform(null);
     }
 
     static getInstance() {
@@ -35,8 +36,15 @@ export class MovingDataService {
      * @returns {null}
      */
     fetchData(cb?:Function) {
-        let ret = this.dataSource.fetchDataFromServer();
+        let ret = this.dataSource.getLoadedData();
+        if (ret === null)
+            ret = this.dataSource.fetchDataFromServer();
         return ret;
+    }
+
+
+    getDataSource() {
+        return this.dataSource;
     }
 
 }

@@ -8,10 +8,6 @@ export class PostTagConnection extends BasicConnection {
     protected static dataList:PostTagConnection[] = [];
 
 
-    /**
-     * Learner constructor
-     * @param data Holds an id and at least a 'name' property by current definition
-     */
     constructor(post:PostDataEntity, tag:TagDataEntity, data:Object) {
         let id = PostDataEntity.getDataList().length;
         super(id, post, tag, data);
