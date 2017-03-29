@@ -14,11 +14,15 @@ export class MovingPluginApi implements GvfPluginInterface {
         UiService.consolelog("Created MOVING API Plugin", this, null, 4);
 
         GraphVisConfig.scene.backplane.color = "#FFFFFF";
+        GraphVisConfig.environment.title ="<i>MOVING</i> Search Result Graph-Visualisation";
 
         ApiService.getInstance().registerEvent("datafrommovingplatform", function (d) {
             console.log("Got RAW SEARCH RESULT DATA FROM MOVINGPLATFORM:", d);
             MovingDataService.getInstance().getDataSource().setData(d);
-            PluginApi.addPlane('MOVING Platform Search Results', CompleteMovingGraph);
+
+            PluginApi.addPlane('All MOVING Platform Search Results', CompleteMovingGraph);
+            PluginApi.addPlane('Authors & Documents', CompleteMovingGraph);
+            PluginApi.addPlane('Documents & Affiliations', CompleteMovingGraph);
         });
     }
 
