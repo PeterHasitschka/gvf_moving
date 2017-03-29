@@ -71,7 +71,7 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
                  */
                 if (!Array.isArray(affiliationsData)) {
                     console.warn("The AFFILIATIONS data does not meet the common data model. Not an array. Assuming object " +
-                        "Handling it as a single author.", affiliationsData, typeof affiliationsData);
+                        "Handling it as a single affiliation.", affiliationsData, typeof affiliationsData);
                     affiliationsData = [affiliationsData];
                 }
 
