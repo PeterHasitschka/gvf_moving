@@ -3,6 +3,8 @@ import {UiService} from "../../../gvfcore/services/ui.service";
 import {DocumentDataEntity} from "../../graph/data/document";
 import {AuthorDataEntity} from "../../graph/data/author";
 import {DocAuthorConnection} from "../../graph/data/connections/docauthor";
+import {AffiliationDataEntity} from "../../graph/data/affiliation";
+import {AuthorAffiliationConnection} from "../../graph/data/connections/authoraffiliation";
 export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace {
 
 
@@ -27,15 +29,19 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
             return false;
         }
 
+        /*
+         DOCUMENTS
+         */
         let hits = data['hits']['hits'];
         hits.forEach((hit:Object) => {
 
 
             let doc = new DocumentDataEntity(hit);
 
-
+            /*
+             AUTHORS
+             */
             let authorsData = hit['_source']['authors'];
-
             /*
              Handling the current data structure which does not meet the common data model
              */
@@ -46,18 +52,44 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
             }
 
             authorsData.forEach((authorData) => {
-                console.log(authorData);
-                let author = AuthorDataEntity.getByEmailAddress(authorData['email']);
+                let author = <AuthorDataEntity>AuthorDataEntity.getByEmailAddress(authorData['email']);
                 if (author === null)
                     author = new AuthorDataEntity(authorData);
 
-                let docAuthorConnection = new DocAuthorConnection(doc, author, {});
-                doc.addConnection(docAuthorConnection);
-                author.addConnection(docAuthorConnection);
+                    let docAuthorConnection = new DocAuthorConnection(doc, author, {});
+                    doc.addConnection(docAuthorConnection);
+                    author.addConnection(docAuthorConnection);
+
+
+
+                /*
+                 AFFILIATIONS
+                 */
+                let affiliationsData = author.getData("affiliations");
+                /*
+                 Handling the current data structure which does not meet the common data model
+                 */
+                if (!Array.isArray(affiliationsData)) {
+                    console.warn("The AFFILIATIONS data does not meet the common data model. Not an array. Assuming object " +
+                        "Handling it as a single author.", affiliationsData, typeof affiliationsData);
+                    affiliationsData = [affiliationsData];
+                }
+
+                affiliationsData.forEach((affiliationData) => {
+                    let aff = AffiliationDataEntity.getByName(affiliationData['name']);
+                    if (aff === null)
+                        aff = new AffiliationDataEntity(affiliationData);
+
+                    let authorAffConnection = new AuthorAffiliationConnection(author, aff, {});
+                    author.addConnection(authorAffConnection);
+                    aff.addConnection(authorAffConnection);
+                });
+
             });
         });
 
         console.log(DocumentDataEntity.getDataList());
         console.log(AuthorDataEntity.getDataList());
+        console.log(AffiliationDataEntity.getDataList());
     }
 }

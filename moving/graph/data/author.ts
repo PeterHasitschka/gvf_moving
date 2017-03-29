@@ -1,5 +1,6 @@
 import {BasicEntity} from "../../../gvfcore/components/graphvis/data/databasicentity";
 import {PersonDataEntity} from "./person";
+import {AffiliationDataEntity} from "./affiliation";
 export class AuthorDataEntity extends PersonDataEntity {
 
 
@@ -24,5 +25,8 @@ export class AuthorDataEntity extends PersonDataEntity {
         return AuthorDataEntity.dataList;
     }
 
+    public getAffiliations():AffiliationDataEntity[] {
+        return this.getConnectedNodeTypesByType(AffiliationDataEntity);
+    }
 
 }

@@ -6,6 +6,10 @@ import {DocumentDataEntity} from "../data/document";
 import {NodeDoc} from "../nodes/nodedoc";
 import {DocAuthorConnection} from "../data/connections/docauthor";
 import {NodeAuthor} from "../nodes/nodeauthor";
+import {EdgeMovingDocAuthor} from "../edges/edgedocauthor";
+import {AffiliationDataEntity} from "../data/affiliation";
+import {NodeAffiliation} from "../nodes/nodeaffiliation";
+import {EdgeMovingAuthorAffiliation} from "../edges/edgeauthoraff";
 export class CompleteMovingGraph extends GraphAbstract {
 
     constructor(protected plane:Plane) {
@@ -32,7 +36,7 @@ export class CompleteMovingGraph extends GraphAbstract {
                 let author = (<DocAuthorConnection>c).getAuthor();
 
                 /**
-                 * Be sure to create post node only once!
+                 * Be sure to create author node only once!
                  */
                 let authorNode:NodeAuthor;
                 author.getRegisteredGraphElements().forEach((na:NodeAuthor) => {
@@ -46,11 +50,39 @@ export class CompleteMovingGraph extends GraphAbstract {
                     this.plane.getGraphScene().addObject(authorNode);
                 }
 
-                let edge = new EdgeMovingPostTag(docNode, authorNode, this.plane);
+                let edge = new EdgeMovingDocAuthor(docNode, authorNode, this.plane);
                 docNode.addEdge(edge);
                 authorNode.addEdge(edge);
                 this.edges.push(edge);
                 this.plane.getGraphScene().addObject(edge);
+
+
+                let affiliations = author.getAffiliations();
+                affiliations.forEach((aff:AffiliationDataEntity) => {
+
+                    /**
+                     * Be sure to create affiliation node only once!
+                     */
+                    let affiliationNode:NodeAffiliation;
+                    aff.getRegisteredGraphElements().forEach((naff:NodeAffiliation) => {
+                        if (!affiliationNode && naff.getPlane().getGraph() === this) {
+                            affiliationNode = naff;
+                        }
+                    });
+                    if (!affiliationNode) {
+                        affiliationNode = new NodeAffiliation(0, 0, aff, this.plane, {});
+                        this.graphElements.push(affiliationNode);
+                        this.plane.getGraphScene().addObject(affiliationNode);
+                    }
+
+                    let edge = new EdgeMovingAuthorAffiliation(authorNode,affiliationNode, this.plane);
+                    affiliationNode.addEdge(edge);
+                    authorNode.addEdge(edge);
+                    this.edges.push(edge);
+                    this.plane.getGraphScene().addObject(edge);
+
+                });
+
             });
 
         });
