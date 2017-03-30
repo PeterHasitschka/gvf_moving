@@ -43,7 +43,6 @@ export class MovingAutoDocAffGraph extends AutoGraph {
         nodeDoc.getDataEntity().getConnections().forEach((c) => {
             if (c.constructor !== DocAuthorConnection)
                 return;
-            console.log(c);
             let author = (<DocAuthorConnection>c).getAuthor();
             let affs = author.getAffiliations();
             affs.forEach((aff:AffiliationDataEntity) => {

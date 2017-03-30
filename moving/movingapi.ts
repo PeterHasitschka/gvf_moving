@@ -24,10 +24,12 @@ export class MovingPluginApi implements GvfPluginInterface {
             MovingDataService.getInstance().getDataSource().setData(d);
 
             PluginApi.addPlane('Automatic MOVING Graph', MovingAutoGraph);
-            PluginApi.addPlane('Automatic MOVING DOCS-AFFILIATIONS', MovingAutoDocAffGraph);
+            PluginApi.addPlane('MOVING DOCS-AFFILIATIONS', MovingAutoDocAffGraph);
+            // PluginApi.addPlane('MOVING Aggregated Nodes', MovingAutoGraph);
+            // PluginApi.addPlane('MOVING Graph Navigation', MovingAutoGraph);
         });
     }
- 
+
     /**
      * Run after plugin was initialized
      */
