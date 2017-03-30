@@ -7,6 +7,7 @@ import {PluginApi} from "../gvfcore/api/gvfpluginapi";
 import {CompleteMovingGraph} from "./graph/graphs/completegraph";
 
 import {ApiService} from "../gvfcore/services/apiservice";
+import {MovingAutoGraph} from "./graph/graphs/movingauto";
 
 
 export class MovingPluginApi implements GvfPluginInterface {
@@ -15,14 +16,17 @@ export class MovingPluginApi implements GvfPluginInterface {
 
         GraphVisConfig.scene.backplane.color = "#FFFFFF";
         GraphVisConfig.environment.title ="<i>MOVING</i> Search Result Graph-Visualisation";
+        GraphVisConfig.environment.showleftcol = false;
 
         ApiService.getInstance().registerEvent("datafrommovingplatform", function (d) {
             console.log("Got RAW SEARCH RESULT DATA FROM MOVINGPLATFORM:", d);
             MovingDataService.getInstance().getDataSource().setData(d);
 
             PluginApi.addPlane('All MOVING Platform Search Results', CompleteMovingGraph);
-            PluginApi.addPlane('Authors & Documents', CompleteMovingGraph);
-            PluginApi.addPlane('Documents & Affiliations', CompleteMovingGraph);
+            PluginApi.addPlane('Automatic MOVING Graph', MovingAutoGraph);
+
+            // PluginApi.addPlane('Authors & Documents', CompleteMovingGraph);
+            // PluginApi.addPlane('Documents & Affiliations', CompleteMovingGraph);
         });
     }
 
