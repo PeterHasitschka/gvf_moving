@@ -1,7 +1,6 @@
 import {GraphAbstract} from "../../../gvfcore/components/graphvis/graphs/graphabstract";
 import {Plane} from "../../../gvfcore/components/plane/plane";
 import {GraphLayoutFdlCompleteMovingGraph} from "../layouts/completegraphfdl";
-import {EdgeMovingPostTag} from "../edges/edgeposttag";
 import {DocumentDataEntity} from "../data/document";
 import {NodeDoc} from "../nodes/nodedoc";
 import {DocAuthorConnection} from "../data/connections/docauthor";
