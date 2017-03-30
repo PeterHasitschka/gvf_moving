@@ -10,8 +10,11 @@ import {NodeAffiliation} from "../nodes/nodeaffiliation";
 import {EdgeMovingAuthorAffiliation} from "../edges/edgeauthoraff";
 import {AuthorDataEntity} from "../data/author";
 import {AuthorAffiliationConnection} from "../data/connections/authoraffiliation";
-import {AutoGraph} from "../../../gvfcore/components/graphvis/graphs/autograph";
+import {AutoGraph, AUTOGRAPH_EDGETYPES} from "../../../gvfcore/components/graphvis/graphs/autograph";
+
+
 export class MovingAutoGraph extends AutoGraph {
+
 
     protected mappingStructure = {
         nodes: [
@@ -30,13 +33,15 @@ export class MovingAutoGraph extends AutoGraph {
         ],
         edges: [
             {
+                type: AUTOGRAPH_EDGETYPES.BY_DATA,
                 dataConnection: DocAuthorConnection,
                 edge: EdgeMovingDocAuthor
             },
             {
+                type: AUTOGRAPH_EDGETYPES.BY_DATA,
                 dataConnection: AuthorAffiliationConnection,
                 edge: EdgeMovingAuthorAffiliation
-            },
+            }
         ]
     };
 
