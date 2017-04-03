@@ -12,8 +12,16 @@ export class DocumentDataEntity extends BasicEntity {
     constructor(hitObject:Object) {
         //let id = DocumentDataEntity.dataList.length;
         let id = parseInt(hitObject['_id']);
+
         super(id, hitObject);
         DocumentDataEntity.dataList.push(this);
+    }
+
+
+    public getData(key:string = null) {
+        if (key !== null && typeof this.data['_source'][key] !== "undefined")
+            return this.data['_source'][key];
+        return super.getData(key);
     }
 
 

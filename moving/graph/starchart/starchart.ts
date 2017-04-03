@@ -10,11 +10,36 @@ export class StarChart extends MetanodeAbstract {
 
     protected static startChartConfig = {
 
-        nodeOrder: [
-            NodeDoc,
-            NodeAuthor,
-            NodeAffiliation
-        ]
+        nodes: [
+            {
+                type: NodeDoc,
+                properties: [
+                    {
+                        property: "docType",
+                        color: 0xFF0000
+                    },
+                    {
+                        property: "language",
+                        color: 0x00FF00
+                    }
+                ]
+            },
+            {
+                type: NodeAuthor,
+                properties: []
+            },
+            {
+                type: NodeAffiliation,
+                properties: []
+            }
+        ],
+
+        propPies: {
+            maxRad: 70,
+            minRad: 30,
+            paddingPropRad: 0.02 * Math.PI * 2,
+            paddingValRad: 0.01 * Math.PI * 2,
+        }
     };
 
 
@@ -27,8 +52,8 @@ export class StarChart extends MetanodeAbstract {
     protected createMeshs(options) {
 
         let sortedNodes = {};
-        StarChart.startChartConfig.nodeOrder.forEach((nodeClass) => {
-            sortedNodes[nodeClass.name] = [];
+        StarChart.startChartConfig.nodes.forEach((nodeConfig) => {
+            sortedNodes[nodeConfig.type.name] = [];
         });
         this.nodes.forEach((n:NodeAbstract) => {
             let nodeTypeIndentifier = n.constructor.name;
@@ -36,24 +61,112 @@ export class StarChart extends MetanodeAbstract {
         });
 
         // HOLDING EVERYTHING!
-        let group = new THREE.Group();
+        let starGroup = new THREE.Group();
         let startAngleRad = 0.0;
-        StarChart.startChartConfig.nodeOrder.forEach((nodeClass) => {
+        StarChart.startChartConfig.nodes.forEach((nodeConfig) => {
 
-            if (!sortedNodes[nodeClass.name].length)
+            if (!sortedNodes[nodeConfig.type.name].length)
                 return;
 
-            let color = sortedNodes[nodeClass.name][0].getColor();
 
-            let factorUsed = sortedNodes[nodeClass.name].length / this.nodes.length;
+            let color = sortedNodes[nodeConfig.type.name][0].getColor();
+
+            // Calculate angles of node-pie
+            let factorUsed = sortedNodes[nodeConfig.type.name].length / this.nodes.length;
             let endAngleRad = startAngleRad + factorUsed * Math.PI * 2;
-            console.log(nodeClass.name, sortedNodes[nodeClass.name].length);
 
-            let pieMesh = new Pie(startAngleRad, endAngleRad, 100, color);
-            group.add(pieMesh);
+            let nodePieMesh = new Pie(startAngleRad, endAngleRad, 50, color, 0);
+            let nodePieGroup = new THREE.Group();
+            nodePieGroup.add(nodePieMesh);
+
+
+            /*
+             Create the property pies and add them to the nodePieGroup
+             */
+            let aggrPropGroup = this.getAggregatedPropGroup(nodeConfig, nodePieMesh);
+            nodePieGroup.add(aggrPropGroup);
+
+
+            starGroup.add(nodePieGroup);
             startAngleRad = endAngleRad;
         });
 
-        this.meshs['stargroup'] = group;
+        this.meshs['stargroup'] = starGroup;
+    }
+
+
+    private getAggregatedPropGroup(nodeConfig, nodePie:Pie):THREE.Group {
+
+        let propGroup = new THREE.Group();
+
+        let startAngle = nodePie.getAngles().start + StarChart.startChartConfig.propPies.paddingPropRad;
+        let endAngle = nodePie.getAngles().end - StarChart.startChartConfig.propPies.paddingPropRad;
+
+        let propPieWidth = (endAngle - startAngle) / nodeConfig.properties.length;
+
+        let currStartAngle = startAngle;
+
+        /*
+         Go THROUGH MULTIPLE PROPERTIES!
+         */
+        nodeConfig.properties.forEach((propConfig, key) => {
+            let propName = propConfig.property;
+            let color = propConfig.color;
+
+
+            let collectedPropVals = this.collectPropertyValuesOfNodes(nodeConfig.type, propName);
+            console.log(collectedPropVals);
+            /*
+             Go THROUGH VALUES
+             */
+            for (var propVal in collectedPropVals.vals) {
+
+                let valOccurenceAmount = collectedPropVals.vals[propVal];
+                // Value between 0 and 1 representing the number of occurences
+                let occurenceRelation = collectedPropVals.max === collectedPropVals.min ? 1 :
+                (valOccurenceAmount - collectedPropVals.min) / (collectedPropVals.max - collectedPropVals.min);
+
+                let radius = StarChart.startChartConfig.propPies.minRad +
+                    (StarChart.startChartConfig.propPies.maxRad - StarChart.startChartConfig.propPies.minRad) * occurenceRelation;
+
+                let demoPropPie = new Pie(currStartAngle,
+                    currStartAngle + propPieWidth - StarChart.startChartConfig.propPies.paddingValRad,
+                    radius,
+                    color,
+                    1);
+                currStartAngle = currStartAngle + propPieWidth;
+
+                propGroup.add(demoPropPie);
+            }
+
+
+        });
+
+        return propGroup;
+    }
+
+
+    private collectPropertyValuesOfNodes(nodeClass, property) {
+        let outData = {
+            min: 1000000,
+            max: -1000000,
+            vals: {}
+        };
+        // Aggregate
+        this.nodes.forEach((n:NodeAbstract) => {
+            if (n.constructor !== nodeClass)
+                return;
+            let val = n.getDataEntity().getData(property);
+            if (typeof outData.vals[val] === "undefined")
+                outData.vals[val] = 0;
+            outData.vals[val]++;
+        });
+
+        // Find min and max
+        for (var k in outData.vals) {
+            outData.min = Math.min(outData.min, outData.vals[k]);
+            outData.max = Math.max(outData.max, outData.vals[k]);
+        }
+        return outData;
     }
 }

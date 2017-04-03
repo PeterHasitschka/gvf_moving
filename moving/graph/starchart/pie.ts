@@ -1,9 +1,11 @@
-
 import {InterGraphEventService, INTERGRAPH_EVENTS} from "../../../gvfcore/services/intergraphevents.service";
 /**
  * Pie for usage as THREE.JS object
  */
 export class Pie extends THREE.Mesh {
+
+    private startAngle;
+    private endAngle;
 
     /**
      *
@@ -11,10 +13,10 @@ export class Pie extends THREE.Mesh {
      * @param endAngle Between 0 and PI*2 (Begin on to clockwise)
      * @param radius Radius (See THREE.JS definitions)
      * @param color Integer value (eg. 0xFF0000)
+     * @param z Z-Index ( = Z-Position)
      */
-    constructor(startAngle, endAngle, radius, color) {
+    constructor(startAngle, endAngle, radius, color, z) {
         let shape = new THREE.Shape();
-        shape.moveTo(radius, 0);
         shape.absarc(0, 0, radius, 0 - (startAngle - Math.PI / 2), 0 - (endAngle - Math.PI / 2), true);
         shape.lineTo(0, 0);
         shape.closePath();
@@ -23,8 +25,28 @@ export class Pie extends THREE.Mesh {
         super(geometry,
             new THREE.MeshBasicMaterial(
                 {
+                    transparent: true,
+                    opacity: 0.8,
                     color: color
                 }));
+
+        if (typeof z === "undefined" || z === null)
+            z = 0;
+
+        this.startAngle = startAngle;
+        this.endAngle = endAngle;
+        this.position.setZ(z);
+    }
+
+    public getAngle() {
+        return this.endAngle - this.startAngle;
+    }
+
+    public getAngles() {
+        return {
+            start: this.startAngle,
+            end: this.endAngle
+        };
     }
 
     /**
