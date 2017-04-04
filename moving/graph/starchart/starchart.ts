@@ -16,12 +16,21 @@ export class StarChart extends MetanodeAbstract {
                 properties: [
                     {
                         property: "docType",
-                        color: 0xFF0000
+                        color: 0x1b9e77
                     },
                     {
                         property: "language",
-                        color: 0x00FF00
+                        color: 0xd95f02
                     }
+                    // ,
+                    // {
+                    //     property: "xxx",
+                    //     color: 0x7570b3
+                    // },
+                    // {
+                    //     property: "xxx",
+                    //     color: 0xe7298a
+                    // }
                 ]
             },
             {
@@ -37,8 +46,9 @@ export class StarChart extends MetanodeAbstract {
         propPies: {
             maxRad: 70,
             minRad: 30,
-            paddingPropRad: 0.02 * Math.PI * 2,
-            paddingValRad: 0.01 * Math.PI * 2,
+            paddingNodeRad: 0.02 * Math.PI * 2,
+            paddingPropRad: 0.04 * Math.PI * 2,
+            paddingValRad: 0.005 * Math.PI * 2,
         }
     };
 
@@ -48,9 +58,13 @@ export class StarChart extends MetanodeAbstract {
         this.name = "Start Chart Meta-Node";
     }
 
-
+    /**
+     * Create all THREE.js elements which represent the star-chart
+     * first the pies representing the nodetype relations are created.
+     * then, for each nodetype, the property-relations are fetched and created
+     * @param options
+     */
     protected createMeshs(options) {
-
         let sortedNodes = {};
         StarChart.startChartConfig.nodes.forEach((nodeConfig) => {
             sortedNodes[nodeConfig.type.name] = [];
@@ -64,10 +78,8 @@ export class StarChart extends MetanodeAbstract {
         let starGroup = new THREE.Group();
         let startAngleRad = 0.0;
         StarChart.startChartConfig.nodes.forEach((nodeConfig) => {
-
             if (!sortedNodes[nodeConfig.type.name].length)
                 return;
-
 
             let color = sortedNodes[nodeConfig.type.name][0].getColor();
 
@@ -79,7 +91,6 @@ export class StarChart extends MetanodeAbstract {
             let nodePieGroup = new THREE.Group();
             nodePieGroup.add(nodePieMesh);
 
-
             /*
              Create the property pies and add them to the nodePieGroup
              */
@@ -90,7 +101,6 @@ export class StarChart extends MetanodeAbstract {
             starGroup.add(nodePieGroup);
             startAngleRad = endAngleRad;
         });
-
         this.meshs['stargroup'] = starGroup;
     }
 
@@ -99,10 +109,9 @@ export class StarChart extends MetanodeAbstract {
 
         let propGroup = new THREE.Group();
 
-        let startAngle = nodePie.getAngles().start + StarChart.startChartConfig.propPies.paddingPropRad;
-        let endAngle = nodePie.getAngles().end - StarChart.startChartConfig.propPies.paddingPropRad;
-
-        let propPieWidth = (endAngle - startAngle) / nodeConfig.properties.length;
+        let startAngle = nodePie.getAngles().start + StarChart.startChartConfig.propPies.paddingNodeRad;
+        let endAngle = nodePie.getAngles().end - StarChart.startChartConfig.propPies.paddingNodeRad;
+        let propWidth = (endAngle - startAngle) / nodeConfig.properties.length;
 
         let currStartAngle = startAngle;
 
@@ -115,10 +124,17 @@ export class StarChart extends MetanodeAbstract {
 
 
             let collectedPropVals = this.collectPropertyValuesOfNodes(nodeConfig.type, propName);
-            console.log(collectedPropVals);
+
+            let propValCount = 0;
+            let propValLength = Object.keys(collectedPropVals.vals).length;
+
+            // If not the last property of the nodes --> padding between them
+            let betweenPropPadding = key === nodeConfig.properties.length - 1 ? 0 : StarChart.startChartConfig.propPies.paddingPropRad;
+
             /*
              Go THROUGH VALUES
              */
+            let propPieWidth = (propWidth - betweenPropPadding) / propValLength;
             for (var propVal in collectedPropVals.vals) {
 
                 let valOccurenceAmount = collectedPropVals.vals[propVal];
@@ -129,23 +145,33 @@ export class StarChart extends MetanodeAbstract {
                 let radius = StarChart.startChartConfig.propPies.minRad +
                     (StarChart.startChartConfig.propPies.maxRad - StarChart.startChartConfig.propPies.minRad) * occurenceRelation;
 
+                let valPadding = StarChart.startChartConfig.propPies.paddingValRad;
+                if (propValCount === propValLength - 1)
+                    valPadding = 0;
+
                 let demoPropPie = new Pie(currStartAngle,
-                    currStartAngle + propPieWidth - StarChart.startChartConfig.propPies.paddingValRad,
+                    currStartAngle + propPieWidth - valPadding,
                     radius,
                     color,
                     1);
                 currStartAngle = currStartAngle + propPieWidth;
 
                 propGroup.add(demoPropPie);
+                propValCount++;
             }
-
-
+            // Add padding between properties
+            currStartAngle += betweenPropPadding;
         });
-
         return propGroup;
     }
 
-
+    /**
+     * Collect number of occurrences of values of a given property on a specific node type
+     * Further returns min and max occurrences
+     * @param nodeClass Class of the nodes to filter the right ones
+     * @param property Key of the property
+     * @returns {{min: number, max: number, vals: {}}}
+     */
     private collectPropertyValuesOfNodes(nodeClass, property) {
         let outData = {
             min: 1000000,
