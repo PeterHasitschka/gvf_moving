@@ -5,6 +5,7 @@ import {NodeAuthor} from "../nodes/nodeauthor";
 import {NodeAffiliation} from "../nodes/nodeaffiliation";
 import {NodeAbstract} from "../../../gvfcore/components/graphvis/graphs/nodes/nodeelementabstract";
 import {Plane} from "../../../gvfcore/components/plane/plane";
+import {Label} from "../../../gvfcore/components/graphvis/graphs/labels/label";
 export class StarChart extends MetanodeAbstract {
 
 
@@ -49,6 +50,13 @@ export class StarChart extends MetanodeAbstract {
             paddingNodeRad: 0.02 * Math.PI * 2,
             paddingPropRad: 0.04 * Math.PI * 2,
             paddingValRad: 0.005 * Math.PI * 2,
+        },
+
+        labels: {
+            pieLabelDistance: 150,
+            pieLabelFontSize : 20,
+            pieLabelStrokeColor : "#888888",
+            hidden: true
         }
     };
 
@@ -90,6 +98,23 @@ export class StarChart extends MetanodeAbstract {
             let nodePieMesh = new Pie(startAngleRad, endAngleRad, 50, color, 0);
             let nodePieGroup = new THREE.Group();
             nodePieGroup.add(nodePieMesh);
+
+
+            let labelPosX = StarChart.startChartConfig.labels.pieLabelDistance * Math.sin((startAngleRad + endAngleRad) / 2);
+            let labelPosY = StarChart.startChartConfig.labels.pieLabelDistance * Math.cos((startAngleRad + endAngleRad) / 2);
+
+            let rotDegree = ((startAngleRad + endAngleRad) / 2) * 360 / (Math.PI * 2);
+            let hexStrColor = "#" + color.toString(16);
+            let nodePieLabel = new Label(this.plane, nodeConfig.type.name, labelPosX, labelPosY, {
+                rotateDegree: rotDegree,
+                color: hexStrColor,
+                fontSize: StarChart.startChartConfig.labels.pieLabelFontSize,
+                strokeColor : StarChart.startChartConfig.labels.pieLabelStrokeColor,
+                hidden : StarChart.startChartConfig.labels.hidden
+            });
+            nodePieGroup.add(nodePieLabel);
+            this.labels.push(nodePieLabel);
+
 
             /*
              Create the property pies and add them to the nodePieGroup
@@ -195,4 +220,5 @@ export class StarChart extends MetanodeAbstract {
         }
         return outData;
     }
+
 }
