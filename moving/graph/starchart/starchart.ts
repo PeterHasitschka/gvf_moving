@@ -53,9 +53,13 @@ export class StarChart extends MetanodeAbstract {
         },
 
         labels: {
-            pieLabelDistance: 150,
-            pieLabelFontSize : 20,
-            pieLabelStrokeColor : "#888888",
+            pieNodeLabelDistance: 110,
+            pieNodeLabelFontSize: 20,
+            pieNodeLabelStrokeColor: "#888888",
+            //
+            piePropValLabelDistance: 85,
+            piePropValLabelFontSize: 18,
+            piePropValLabelStrokeColor: "#888888",
             hidden: true
         }
     };
@@ -100,21 +104,9 @@ export class StarChart extends MetanodeAbstract {
             nodePieGroup.add(nodePieMesh);
 
 
-            let labelPosX = StarChart.startChartConfig.labels.pieLabelDistance * Math.sin((startAngleRad + endAngleRad) / 2);
-            let labelPosY = StarChart.startChartConfig.labels.pieLabelDistance * Math.cos((startAngleRad + endAngleRad) / 2);
-
-            let rotDegree = ((startAngleRad + endAngleRad) / 2) * 360 / (Math.PI * 2);
-            let hexStrColor = "#" + color.toString(16);
-            let nodePieLabel = new Label(this.plane, nodeConfig.type.name, labelPosX, labelPosY, {
-                rotateDegree: rotDegree,
-                color: hexStrColor,
-                fontSize: StarChart.startChartConfig.labels.pieLabelFontSize,
-                strokeColor : StarChart.startChartConfig.labels.pieLabelStrokeColor,
-                hidden : StarChart.startChartConfig.labels.hidden
-            });
+            let nodePieLabel = this.createNodePieLabel(nodeConfig, startAngleRad, endAngleRad, color);
             nodePieGroup.add(nodePieLabel);
             this.labels.push(nodePieLabel);
-
 
             /*
              Create the property pies and add them to the nodePieGroup
@@ -128,6 +120,24 @@ export class StarChart extends MetanodeAbstract {
         });
         this.meshs['stargroup'] = starGroup;
     }
+
+    private createNodePieLabel(nodeConfig, startAngleRad, endAngleRad, color) {
+        let labelPosX = StarChart.startChartConfig.labels.pieNodeLabelDistance * Math.sin((startAngleRad + endAngleRad) / 2);
+        let labelPosY = StarChart.startChartConfig.labels.pieNodeLabelDistance * Math.cos((startAngleRad + endAngleRad) / 2);
+
+        let rotDegree = ((startAngleRad + endAngleRad) / 2) * 360 / (Math.PI * 2);
+        let hexStrColor = "#" + color.toString(16);
+        let nodePieLabel = new Label(this.plane, nodeConfig.type.name, labelPosX, labelPosY, {
+            rotateDegree: rotDegree,
+            color: hexStrColor,
+            fontSize: StarChart.startChartConfig.labels.pieNodeLabelFontSize,
+            strokeColor: StarChart.startChartConfig.labels.pieNodeLabelStrokeColor,
+            hidden: StarChart.startChartConfig.labels.hidden
+        });
+        return nodePieLabel;
+    }
+
+
 
 
     private getAggregatedPropGroup(nodeConfig, nodePie:Pie):THREE.Group {
@@ -174,14 +184,22 @@ export class StarChart extends MetanodeAbstract {
                 if (propValCount === propValLength - 1)
                     valPadding = 0;
 
-                let demoPropPie = new Pie(currStartAngle,
+                let propPie = new Pie(currStartAngle,
                     currStartAngle + propPieWidth - valPadding,
                     radius,
                     color,
                     1);
+
+                let propLabel = this.createPropValPieLabel(propVal, currStartAngle, currStartAngle + propPieWidth - valPadding, color);
+
                 currStartAngle = currStartAngle + propPieWidth;
 
-                propGroup.add(demoPropPie);
+                propGroup.add(propPie);
+                propGroup.add(propLabel);
+                this.labels.push(propLabel);
+
+
+
                 propValCount++;
             }
             // Add padding between properties
@@ -189,6 +207,25 @@ export class StarChart extends MetanodeAbstract {
         });
         return propGroup;
     }
+
+
+
+    private createPropValPieLabel(title, startAngleRad, endAngleRad, color) {
+        let labelPosX = StarChart.startChartConfig.labels.piePropValLabelDistance * Math.sin((startAngleRad + endAngleRad) / 2);
+        let labelPosY = StarChart.startChartConfig.labels.piePropValLabelDistance * Math.cos((startAngleRad + endAngleRad) / 2);
+
+        let rotDegree = ((startAngleRad + endAngleRad) / 2) * 360 / (Math.PI * 2);
+        let hexStrColor = "#" + color.toString(16);
+        let nodePieLabel = new Label(this.plane, title, labelPosX, labelPosY, {
+            rotateDegree: rotDegree,
+            color: hexStrColor,
+            fontSize: StarChart.startChartConfig.labels.piePropValLabelFontSize,
+            strokeColor: StarChart.startChartConfig.labels.piePropValLabelStrokeColor,
+            hidden: StarChart.startChartConfig.labels.hidden
+        });
+        return nodePieLabel;
+    }
+
 
     /**
      * Collect number of occurrences of values of a given property on a specific node type
