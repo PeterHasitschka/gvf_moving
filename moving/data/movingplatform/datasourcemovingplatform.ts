@@ -24,15 +24,10 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
 
         UiService.consolelog(["Setting data", data], this);
 
-        if (data['timed_out']) {
-            console.error("Data from MOVING platform has the 'timed_out' flag set! Abort!");
-            return false;
-        }
-
         /*
          DOCUMENTS
          */
-        let hits = data['hits']['hits'];
+        let hits = data;
         hits.forEach((hit:Object) => {
 
 

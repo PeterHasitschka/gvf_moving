@@ -12,14 +12,7 @@
          * Allows to work without moving platform.
          * This data stub is that what we currently receive from the elasticsearch
          */
-        var dummyData = {
-            "took": 3,
-            "timed_out": false,
-            "_shards": {"total": 1, "successful": 1, "failed": 0},
-            "hits": {
-                "total": 49,
-                "max_score": 2.7213163,
-                "hits": [{
+        var dummyData = [{
                     "_index": "moving",
                     "_type": "publication",
                     "_id": "181638",
@@ -229,9 +222,7 @@
                         "keywords": "",
                         "identifier": "17622"
                     }
-                }]
-            }
-        };
+                }];
 
         gvfapi.registerEvent("initready", function (d) {
             console.log("INITREADY FROM DOWN SAYS:", d);
