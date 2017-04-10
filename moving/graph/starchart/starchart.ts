@@ -1,4 +1,4 @@
-import {Pie} from "./pie";
+import {Pie} from "../../../gvfcore/components/graphvis/graphs/metanodes/pie";
 import {MetanodeAbstract} from "../../../gvfcore/components/graphvis/graphs/metanodes/metanodeabstract";
 import {NodeDoc} from "../nodes/nodedoc";
 import {NodeAuthor} from "../nodes/nodeauthor";
