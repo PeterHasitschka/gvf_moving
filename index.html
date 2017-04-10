@@ -13,80 +13,221 @@
          * This data stub is that what we currently receive from the elasticsearch
          */
         var dummyData = {
-            "took": 10,
+            "took": 3,
             "timed_out": false,
-            "_shards": {"total": 5, "successful": 5, "failed": 0},
+            "_shards": {"total": 1, "successful": 1, "failed": 0},
             "hits": {
-                "total": 3,
-                "max_score": 2.9726036,
+                "total": 49,
+                "max_score": 2.7213163,
                 "hits": [{
                     "_index": "moving",
                     "_type": "publication",
-                    "_id": "181243",
-                    "_score": 2.9726036,
+                    "_id": "181638",
+                    "_score": 2.7213163,
                     "_source": {
-                        "startDate": "2006-06-12",
-                        "endDate": "2007-02-25",
+                        "startDate": "2016-08-01",
+                        "endDate": "2016-08-23",
                         "language": "en",
-                        "title": "Gaussian Process Basics",
-                        "URL": "http://videolectures.net/gpip06_mackay_gpb",
-                        "abstract": "How on earth can a plain old Gaussian distribution be useful for sophisticated regression and machine learning tasks?",
-                        "docType": "vl",
+                        "title": "Machine Learning",
+                        "URL": "http://videolectures.net/deeplearning2016_precup_machine_learning",
+                        "abstract": "\"We provide a general introduction to machine learning, aimed to put all participants on the same page in terms of definitions and basic background. After a brief overview of different machine learning problems, we discuss linear regression, its objective function and closed-form solution. We discuss the bias-variance trade-off and the issue of overfitting (and the proper use of cross-validation to measure performance objectively). We discuss the probabilistic view of the sum-squared error as maximizing likelihood under specific assumptions on the data generation process, and present L2 and L1 regularization methods as priors from a Bayesian perspective. We briefly discuss Bayesian methodology for learning. Finally, we present logistic regression, the cross-entropy optimization criterion and its solution through first- and second-order methods.\"",
+                        "docType": "vit",
                         "authors": {
-                            "affiliations": {"name": "University of Cambridge"},
-                            "name": "David MacKay",
-                            "email": "mackay@mrao.cam.ac.uk"
+                            "affiliations": {"name": "McGill University"},
+                            "name": "Doina Precup",
+                            "email": "dprecup@cs.mcgill.ca"
                         },
                         "keywords": "",
-                        "identifier": "588"
+                        "identifier": "24495"
                     }
                 }, {
                     "_index": "moving",
                     "_type": "publication",
-                    "_id": "181237",
-                    "_score": 2.596332,
+                    "_id": "181759",
+                    "_score": 2.177053,
                     "_source": {
-                        "startDate": "2007-07-02",
-                        "endDate": "2007-07-02",
+                        "startDate": "2008-01-25",
+                        "endDate": "2008-02-05",
                         "language": "en",
-                        "title": "Basics of probability and statistics",
-                        "URL": "http://videolectures.net/bootcamp07_keller_bss",
+                        "title": "Applications to Machine Vision",
+                        "URL": "http://videolectures.net/epsrcws08_blake_amv",
+                        "abstract": "\"This presentation describes novel approaches to spatial inference problems in vision and image processing. Markov random field models are described for image restoration, foreground segmentation, graph cutting and stereo matching.\"",
+                        "docType": "vl",
+                        "authors": {
+                            "affiliations": {"name": "Microsoft Research"},
+                            "name": "Andrew Blake",
+                            "email": "a.blake@microsoft.com"
+                        },
+                        "keywords": "",
+                        "identifier": "3831"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181276",
+                    "_score": 2.177053,
+                    "_source": {
+                        "startDate": "2010-07-05",
+                        "endDate": "2010-08-05",
+                        "language": "en",
+                        "title": "Introduction to Machine Learning",
+                        "URL": "http://videolectures.net/bootcamp2010_murray_iml",
+                        "abstract": "\"How can we represent data on a computer and use it to learn to perform useful tasks? This lecture reviews some simple classification and regression rules, discusses under- and over-fitting and emphasises the utility of defining objective functions for learning. There is also a short overview of Bayesian learning, and some practical tips for pre-processing and visualizing data. The lecture ends with a brief mention of unsupervised learning and related topics.\"",
+                        "docType": "vl",
+                        "authors": {
+                            "affiliations": {"name": "University of Edinburgh"},
+                            "name": "Iain Murray",
+                            "email": "i.murray@ed.ac.uk"
+                        },
+                        "keywords": "",
+                        "identifier": "13167"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181667",
+                    "_score": 2.177053,
+                    "_source": {
+                        "startDate": "2007-07-12",
+                        "endDate": "2007-07-12",
+                        "language": "en",
+                        "title": "Machine Learning in Vision",
+                        "URL": "http://videolectures.net/bootcamp07_triggs_mlv",
                         "abstract": "",
                         "docType": "vl",
-                        "authors": [
-                            {
-                                "affiliations": {"name": "Children's Hospital Boston"},
-                                "name": "Mikaela Keller",
-                                "email": "mikaela.keller@childrens.harvard.edu"
-                            },
-                            {
-                                "affiliations": {"name": "University of Cambridge"},
-                                "name": "David MacKay",
-                                "email": "mackay@mrao.cam.ac.uk"
-                            }],
-                        "keywords": "\"Linear Algebra Basics, Statistical Learning Theory, Probability and Statistics Basics\"",
-                        "identifier": "2763"
+                        "authors": {
+                            "affiliations": {"name": "Laboratoire Jean Kuntzmann"},
+                            "name": "Bill Triggs",
+                            "email": "Bill.Triggs@imag.fr"
+                        },
+                        "keywords": "",
+                        "identifier": "2824"
                     }
                 }, {
                     "_index": "moving",
                     "_type": "publication",
-                    "_id": "181432",
-                    "_score": 2.2347531,
+                    "_id": "182009",
+                    "_score": 2.177053,
+                    "_source": {
+                        "startDate": "2008-12-12",
+                        "endDate": "2008-12-20",
+                        "language": "en",
+                        "title": "Machine Learning Py (mlpy)",
+                        "URL": "http://videolectures.net/mloss08_albanese_mlp",
+                        "abstract": "\"We introduce mlpy, a high-performance Python package for predictive modeling. It makes extensive use of NumPy to provide fast N-dimensional array manipulation and easy integration of C code. Mlpy provides high level procedures that support, with few lines of code, the design of rich Data Analysis Protocols (DAPs) for predictive classi\ufb01cation and feature selection. Methods are available for feature weighting and ranking, data resampling, error evaluation and experiment landscaping. The package includes tools to measure stability in sets of ranked feature lists, of special interest in bioinformatics for functional genomics, for which large scale experiments with up to 106 classi\ufb01ers have been run on Linux clusters and on the Grid.\"",
+                        "docType": "vl",
+                        "authors": {
+                            "affiliations": {"name": "Fondazione Bruno Kessler"},
+                            "name": "Davide Albanese",
+                            "email": "davide.albanese@gmail.com"
+                        },
+                        "keywords": "",
+                        "identifier": "6970"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181817",
+                    "_score": 2.177053,
+                    "_source": {
+                        "startDate": "2005-01-31",
+                        "endDate": "2007-02-25",
+                        "language": "en",
+                        "title": "Machine Learning for Games",
+                        "URL": "http://videolectures.net/mlss05au_graepel_mlg",
+                        "abstract": "\"The course gives an introduction to the application of machine learning techniques to games. The course will consist of two parts, part I dealing with computer/video games, part II dealing with traditional board/strategy games. Alongside, I will introduce necessary background material including aspects of neural networks, reinforcement learning, and graphical models. 1. In recent years various aspects of computer games have been developed to near perfection. These include high-performance graphics, realistic surround sound, and detailed physical simulations. However, the control of non-player characters (NPCs), also known as game AI, has fallen behind to the point that the resulting gaming experience often suffers. Machine learning offers a framework for making NPCs adaptive to both the environment and the human player. This technology has therefore the potential to greatly enhance gaming experience. Furthermore, at development time machine learning techniques can be employed to automate the creation of (intelligent) NPC behavior, thereby replacing the current standard of scripting and trial-and-error. The examples presented include imitation learning for avatars and reinforcement learning in fighting games. 2. Classical board games such as Chess, Go, and Backgammon have been a traditional theme in artificial intelligence. While chess has essentially been solved by traditional AI approaches, world-class Backgammon engines could only be developed based on machine learning techniques, originally in the combination of neural networks and reinforcement learning. For the traditional board game Go, neither of the two approaches has been successful so far. In this part of the course I will explain and discuss the machine learning approach to Backgammon. I will then give an introduction to the game of Go and discuss what machine learning may be able to contribute to the field of computer Go with a particular focus on modeling the uncertainty that emerges from the game's overwhelming complexity.\"",
+                        "docType": "vl",
+                        "authors": {
+                            "affiliations": {"name": "Microsoft Research"},
+                            "name": "Thore Graepel",
+                            "email": "thoreg@microsoft.com"
+                        },
+                        "keywords": "",
+                        "identifier": "1180"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181449",
+                    "_score": 2.177053,
+                    "_source": {
+                        "startDate": "2007-08-29",
+                        "endDate": "2007-08-29",
+                        "language": "en",
+                        "title": "Machine learning and finance",
+                        "URL": "http://videolectures.net/mlss07_gyorfi_mlaf",
+                        "abstract": "",
+                        "docType": "vl",
+                        "authors": {
+                            "affiliations": {"name": "Budapest University of Technology and Economics"},
+                            "name": "L\u00e1szl\u00f3 Gy\u00f6rfi",
+                            "email": "gyorfi@szit.bme.hu"
+                        },
+                        "keywords": "",
+                        "identifier": "3108"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181853",
+                    "_score": 2.177053,
+                    "_source": {
+                        "startDate": "2012-09-25",
+                        "endDate": "2012-10-29",
+                        "language": "en",
+                        "title": "Machine Learning for Robotics",
+                        "URL": "http://videolectures.net/ecmlpkdd2012_abbeel_learning_robotics",
+                        "abstract": "\"Robots are typically far less capable in autonomous mode than in tele-operated mode. The few exceptions tend to stem from long days (and more often weeks, or even years) of expert engineering for a specific robot and its operating environment. Current control methodology is quite slow and labor intensive. I believe advances in machine learning have the potential to revolutionize robotics. In this talk, I will present new machine learning techniques we have developed that are tailored to robotics. I will describe in depth \u201cApprenticeship learning,\u201d a new approach to high-performance robot control based on learning for control from ensembles of expert human demonstrations. Our initial work in apprenticeship learning has enabled the most advanced helicopter aerobatics to-date, including maneuvers such as chaos, tic-tocs, and auto-rotation landings which only exceptional expert human pilots can fly. Our most recent work in apprenticeship learning is providing traction on learning to perform challenging robotic manipulation tasks, such as knot-tying. I will also briefly highlight three other machine learning for robotics developments: Inverse reinforcement learning and its application to quadruped locomotion, Safe exploration in reinforcement learning which enables robots to learn on their own, and Learning for perception with application to robotic laundry.\"",
+                        "docType": "vkn",
+                        "authors": {
+                            "affiliations": {"name": "UC Berkeley"},
+                            "name": "Pieter Abbeel",
+                            "email": "pabbeel@cs.berkeley.edu"
+                        },
+                        "keywords": "",
+                        "identifier": "19094"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "181282",
+                    "_score": 2.177053,
                     "_source": {
                         "startDate": "2007-07-02",
                         "endDate": "2007-07-02",
                         "language": "en",
-                        "title": "\"Basics of algorithmics, computation models, formal languages\"",
-                        "URL": "http://videolectures.net/bootcamp07_higuera_bacm",
-                        "abstract": "\"Between the many theoretical computer science issues that one should be aware of when working in Machine learning, we visit, in this series of lectures, two. The first corresponds to strings, and through the study of strings, the questions about more complex structures like trees and graphs. We describe the main algorithmic and combinatorial questions about substrings and subsequences, and concentrate our attention to the topological questions: ordering strings and computing distances and kernels. The second is complexity. Not only should we be aware (and have a reasonable control of the techniques involved) of the usual barriers, but we should know something about classes for randomized algorithms. We also show some examples concerning Las Vegas and Monte Carlo techniques.\"",
+                        "title": "Introduction to Machine Learning",
+                        "URL": "http://videolectures.net/bootcamp07_guyon_itml",
+                        "abstract": "\"This course covers feature selection fundamentals and applications. The students will first be reminded of the basics of machine learning algorithms and the problem of overfitting avoidance. In the wrapper setting, feature selection will be introduced as a special case of the model selection problem. Methods to derive principled feature selection algorithms will be reviewed as well as heuristic method, which work well in practice. One class will be devoted to feature construction techniques. Finally, a lecture will be devoted to the connections between feature section and causal discovery. The class will be accompanied by several lab sessions. The course will be attractive to students who like playing with data and want to learn practical data analysis techniques. The instructor has ten years of experience with consulting for startup companies in the US in pattern recognition and machine learning. Datasets from a variety of application domains will be made available: handwriting recognition, medical diagnosis, drug discovery, text classification, ecology, marketing.\"",
+                        "docType": "vit",
+                        "authors": {
+                            "affiliations": {"name": "Clopinet"},
+                            "name": "Isabelle Guyon",
+                            "email": "isabelle@clopinet.com"
+                        },
+                        "keywords": "\"Basic learning machine, Principle of learning\"",
+                        "identifier": "2761"
+                    }
+                }, {
+                    "_index": "moving",
+                    "_type": "publication",
+                    "_id": "182087",
+                    "_score": 2.177053,
+                    "_source": {
+                        "startDate": "2011-10-19",
+                        "endDate": "2012-06-27",
+                        "language": "en",
+                        "title": "Introduction to Machine Learning",
+                        "URL": "http://videolectures.net/cidu2011_banerjee_intro_to_ml",
+                        "abstract": "\"Over the past few decades, the field of Machine Learning has matured significantly, drawing ideas from several disciplines including Statistics, Optimization, and Artificial Intelligence. Applications of Machine Learning have led to important advances in a wide variety of domains ranging from Internet applications to scientific problems. This talk will give a gentle tutorial introduction to Machine Learning with broad overview on four families of models and methods: predictive models, graphical models, online learning, and exploratory data analysis. The talk will discuss the main idea behind some of key approaches in each family and the problems where they are applicable. A wide variety of applications including text analysis, recommendation systems, climate sciences, and finance will be discussed.\"",
                         "docType": "vtt",
                         "authors": {
-                            "affiliations": {"name": "University of Nantes"},
-                            "name": "Colin de la Higuera",
-                            "email": "cdlh@univ-nantes.fr"
+                            "affiliations": {"name": "University of Minnesota"},
+                            "name": "Arindam Banerjee",
+                            "email": "banerjee@cs.umn.edu"
                         },
-                        "keywords": "TCS for Machine Learning Scientists",
-                        "identifier": "2762"
+                        "keywords": "",
+                        "identifier": "17622"
                     }
                 }]
             }
