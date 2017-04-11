@@ -23,6 +23,7 @@ export class MovingPluginApi implements GvfPluginInterface {
 
         GraphVisConfig.graphelements.metanode.type = MovingStarChart;
 
+        UiService.consolelog("Registering Data Incoming event (datafrommovingplatform)", this);
         ApiService.getInstance().registerEvent("datafrommovingplatform", function (d) {
             console.log("Got RAW SEARCH RESULT DATA FROM MOVINGPLATFORM:", d);
             MovingDataService.getInstance().getDataSource().setData(d);
