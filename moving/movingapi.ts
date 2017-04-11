@@ -9,7 +9,8 @@ import {ApiService} from "../gvfcore/services/apiservice";
 
 import {MovingAutoDocAffGraph} from "./graph/graphs/movingautodocaff";
 import {MovingAutoGraph} from "./graph/graphs/movingautocomplete";
-import {StarChart} from "./graph/starchart/starchart";
+import {MovingStarChart} from "./graph/starchart/movingstarchart";
+
 
 
 export class MovingPluginApi implements GvfPluginInterface {
@@ -20,7 +21,7 @@ export class MovingPluginApi implements GvfPluginInterface {
         GraphVisConfig.environment.title = "<i>MOVING</i> Search Result Graph-Visualisation";
         GraphVisConfig.environment.showleftcol = false;
 
-        GraphVisConfig.graphelements.metanode.type = StarChart;
+        GraphVisConfig.graphelements.metanode.type = MovingStarChart;
 
         ApiService.getInstance().registerEvent("datafrommovingplatform", function (d) {
             console.log("Got RAW SEARCH RESULT DATA FROM MOVINGPLATFORM:", d);
