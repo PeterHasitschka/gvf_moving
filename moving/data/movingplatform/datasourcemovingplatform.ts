@@ -37,6 +37,11 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
              AUTHORS
              */
             let authorsData = hit['_source']['authors'];
+
+            // No authors available
+            if (typeof authorsData === "undefined")
+                authorsData = [];
+
             /*
              Handling the current data structure which does not meet the common data model
              */
@@ -47,20 +52,25 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
             }
 
             authorsData.forEach((authorData) => {
+                console.log(hit);
                 let author = <AuthorDataEntity>AuthorDataEntity.getByEmailAddress(authorData['email']);
                 if (author === null)
                     author = new AuthorDataEntity(authorData);
 
-                    let docAuthorConnection = new DocAuthorConnection(doc, author, {});
-                    doc.addConnection(docAuthorConnection);
-                    author.addConnection(docAuthorConnection);
-
+                let docAuthorConnection = new DocAuthorConnection(doc, author, {});
+                doc.addConnection(docAuthorConnection);
+                author.addConnection(docAuthorConnection);
 
 
                 /*
                  AFFILIATIONS
                  */
                 let affiliationsData = author.getData("affiliations");
+
+                // No affiliations available
+                if (typeof affiliationsData === "undefined")
+                    affiliationsData = [];
+
                 /*
                  Handling the current data structure which does not meet the common data model
                  */
