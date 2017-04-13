@@ -10,7 +10,7 @@ import {ApiService} from "../gvfcore/services/apiservice";
 import {MovingAutoDocAffGraph} from "./graph/graphs/movingautodocaff";
 import {MovingAutoGraph} from "./graph/graphs/movingautocomplete";
 import {MovingStarChart} from "./graph/starchart/movingstarchart";
-
+import {SideInfoPositions, SideInfoContentType, SideInfoModel} from "../gvfcore/components/app/sideinfo/sideinfomodel";
 
 
 export class MovingPluginApi implements GvfPluginInterface {
@@ -33,6 +33,21 @@ export class MovingPluginApi implements GvfPluginInterface {
             // PluginApi.addPlane('MOVING Aggregated Nodes', MovingAutoGraph);
             // PluginApi.addPlane('MOVING Graph Navigation', MovingAutoGraph);
         });
+
+
+        UiService.getInstance().addSideInfoElement(new SideInfoModel(
+            '<i class="fa fa-info-circle" aria-hidden="true"></i> Legend',
+            SideInfoPositions.Right,
+            SideInfoContentType.Text,
+            {
+                text: "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-documentnode'></div><span>Document</span></div>" +
+                "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-authornode'></div><span>Author</span></div>" +
+                "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-affnode'></div><span>Affiliation</span></div>"
+            },
+            1
+            )
+        )
+        ;
     }
 
     /**
