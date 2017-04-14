@@ -28,10 +28,12 @@ export class MovingPluginApi implements GvfPluginInterface {
             console.log("Got RAW SEARCH RESULT DATA FROM MOVINGPLATFORM:", d);
             MovingDataService.getInstance().getDataSource().setData(d);
 
-            PluginApi.addPlane('Automatic MOVING Graph', MovingAutoGraph);
-            PluginApi.addPlane('MOVING DOCS-AFFILIATIONS', MovingAutoDocAffGraph);
+            PluginApi.addPlane('Automatic MOVING Graph', MovingAutoGraph, true);
+            // PluginApi.addPlane('MOVING DOCS-AFFILIATIONS', MovingAutoDocAffGraph);
             // PluginApi.addPlane('MOVING Aggregated Nodes', MovingAutoGraph);
             // PluginApi.addPlane('MOVING Graph Navigation', MovingAutoGraph);
+
+
         });
 
 
