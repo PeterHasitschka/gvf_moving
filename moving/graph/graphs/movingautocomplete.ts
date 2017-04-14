@@ -11,6 +11,10 @@ import {EdgeMovingAuthorAffiliation} from "../edges/edgeauthoraff";
 import {AuthorDataEntity} from "../data/author";
 import {AuthorAffiliationConnection} from "../data/connections/authoraffiliation";
 import {AutoGraph, AUTOGRAPH_EDGETYPES} from "../../../gvfcore/components/graphvis/graphs/autograph";
+import {YearDataEntity} from "../data/year";
+import {NodeYear} from "../nodes/nodeyear";
+import {DocYearConnection} from "../data/connections/docyear";
+import {EdgeMovingDocYear} from "../edges/edgedocyear";
 
 
 export class MovingAutoGraph extends AutoGraph {
@@ -29,6 +33,10 @@ export class MovingAutoGraph extends AutoGraph {
             {
                 data: AffiliationDataEntity,
                 node: NodeAffiliation
+            },
+            {
+                data: YearDataEntity,
+                node: NodeYear
             }
         ],
         edges: [
@@ -41,6 +49,11 @@ export class MovingAutoGraph extends AutoGraph {
                 type: AUTOGRAPH_EDGETYPES.BY_DATA,
                 dataConnection: AuthorAffiliationConnection,
                 edge: EdgeMovingAuthorAffiliation
+            },
+            {
+                type: AUTOGRAPH_EDGETYPES.BY_DATA,
+                dataConnection: DocYearConnection,
+                edge: EdgeMovingDocYear
             }
         ]
     };

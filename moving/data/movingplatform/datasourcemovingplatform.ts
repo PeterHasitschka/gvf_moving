@@ -5,6 +5,8 @@ import {AuthorDataEntity} from "../../graph/data/author";
 import {DocAuthorConnection} from "../../graph/data/connections/docauthor";
 import {AffiliationDataEntity} from "../../graph/data/affiliation";
 import {AuthorAffiliationConnection} from "../../graph/data/connections/authoraffiliation";
+import {YearDataEntity} from "../../graph/data/year";
+import {DocYearConnection} from "../../graph/data/connections/docyear";
 export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace {
 
 
@@ -32,6 +34,31 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
 
 
             let doc = new DocumentDataEntity(hit);
+
+            let yearDataStart = hit['_source']['startDate'];
+            let yearDataEnd = hit['_source']['startDate'];
+
+            let dStart = new Date(yearDataStart);
+            let dEnd = new Date(yearDataEnd);
+
+            if (!dEnd.getFullYear())
+                dEnd = dStart;
+
+            let yStart = dStart.getFullYear();
+            let yEnd = dEnd.getFullYear();
+
+            if (yStart) {
+                for (var currY = yStart; currY <= yEnd; currY++) {
+                    let year = YearDataEntity.getByYear(currY);
+                    if (!year)
+                        year = new YearDataEntity(currY);
+
+                    let docYearConn = new DocYearConnection(doc, year, {});
+                    doc.addConnection(docYearConn);
+                    year.addConnection(docYearConn);
+                }
+            }
+
 
             /*
              AUTHORS

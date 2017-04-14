@@ -42,7 +42,8 @@ export class MovingPluginApi implements GvfPluginInterface {
             {
                 text: "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-documentnode'></div><span>Document</span></div>" +
                 "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-authornode'></div><span>Author</span></div>" +
-                "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-affnode'></div><span>Affiliation</span></div>"
+                "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-affnode'></div><span>Affiliation</span></div>" +
+                "<div class='moving-legend-line'><div class='moving-legend-node moving-legend-yearnode'></div><span>Year</span></div>"
             },
             1
             )

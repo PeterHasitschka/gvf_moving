@@ -4,6 +4,7 @@ import {NodeAffiliation} from "../nodes/nodeaffiliation";
 import {NodeAbstract} from "../../../gvfcore/components/graphvis/graphs/nodes/nodeelementabstract";
 import {Plane} from "../../../gvfcore/components/plane/plane";
 import {StarChart} from "../../../gvfcore/components/graphvis/graphs/metanodes/starchart/starchart";
+import {NodeYear} from "../nodes/nodeyear";
 export class MovingStarChart extends StarChart {
 
     constructor(x:number, y:number, nodes:NodeAbstract[], plane:Plane) {
@@ -42,6 +43,15 @@ export class MovingStarChart extends StarChart {
             {
                 type: NodeAffiliation,
                 properties: []
+            },
+            {
+                type: NodeYear,
+                properties: [
+                    // {
+                    //     property: "year",
+                    //     color: 0x7570b3
+                    // }
+                ]
             }
         ];
 
