@@ -9,7 +9,7 @@ export class NodeAffiliation extends NodeMoving {
     constructor(x:number, y:number, dataEntity:DataAbstract, plane:Plane, options:Object) {
         super(x, y, dataEntity, plane, options);
 
-
+        this.labelIconPath = "/moving/assets/icon_aff.png";
         this.color = 0xaaffaa;
         this.highlightColor = 0x88ff88;
         this.setColor(this.color);
