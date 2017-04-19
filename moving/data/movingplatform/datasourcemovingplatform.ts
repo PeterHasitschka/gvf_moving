@@ -64,6 +64,7 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
              AUTHORS
              */
             let authorsData = hit['_source']['authors'];
+            
 
             // No authors available
             if (typeof authorsData === "undefined")
@@ -93,6 +94,9 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
                  AFFILIATIONS
                  */
                 let affiliationsData = author.getData("affiliations");
+
+                if (affiliationsData === null)
+                    return;
 
                 // No affiliations available
                 if (typeof affiliationsData === "undefined")
