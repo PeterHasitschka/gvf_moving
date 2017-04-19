@@ -15,6 +15,6 @@ export class NodeYear extends NodeMoving {
 
         this.labelType = GRAPH_ELEMENT_LABEL_TYPE.TEXT;
         this.labelZoomLevelMin = 1;
-        this.labelText = dataEntity.getData("year").toString().substring(2, 4);
+        this.labelText = '\'' + dataEntity.getData("year").toString().substring(2, 4);
     }
 }

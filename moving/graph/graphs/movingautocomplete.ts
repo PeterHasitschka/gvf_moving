@@ -16,6 +16,7 @@ import {NodeYear} from "../nodes/nodeyear";
 import {DocYearConnection} from "../data/connections/docyear";
 import {EdgeMovingDocYear} from "../edges/edgedocyear";
 import {GraphLayoutRandomCompleteMovingGraph} from "../layouts/completegraphrand";
+import {GraphLayoutFdlQuadtreeCompleteMovingGraph} from "../layouts/completegraphfdlquadtree";
 
 
 export class MovingAutoGraph extends AutoGraph {
@@ -62,7 +63,7 @@ export class MovingAutoGraph extends AutoGraph {
     constructor(protected plane:Plane) {
         super(plane);
         //this.layoutClass = GraphLayoutFdlCompleteMovingGraph;
-        this.layoutClass = GraphLayoutRandomCompleteMovingGraph;
+        this.layoutClass = GraphLayoutFdlQuadtreeCompleteMovingGraph;
     }
 
     public init() {
