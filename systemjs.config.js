@@ -20,6 +20,7 @@
         'ngraph.physics.simulator': 'node_modules/ngraph.physics.simulator',
         'ngraph.quadtreebh': 'node_modules/ngraph.quadtreebh',
         'ngraph.random': 'node_modules/ngraph.random'
+
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
