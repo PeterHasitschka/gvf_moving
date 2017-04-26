@@ -7,6 +7,7 @@ import {AffiliationDataEntity} from "../../graph/data/affiliation";
 import {AuthorAffiliationConnection} from "../../graph/data/connections/authoraffiliation";
 import {YearDataEntity} from "../../graph/data/year";
 import {DocYearConnection} from "../../graph/data/connections/docyear";
+import {GraphVisConfig} from "../../../gvfcore/components/graphvis/config";
 export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace {
 
 
@@ -25,18 +26,18 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
     setData(data) {
 
         UiService.consolelog(["Setting data", data], this);
-
+        let dataDebug = GraphVisConfig.scene.debug.dataDebug;
         /*
          DOCUMENTS
          */
-        let hits = data;
-        hits.forEach((hit:Object) => {
+        let documentResults = data;
+        documentResults.forEach((documentResult:Object) => {
 
 
-            let doc = new DocumentDataEntity(hit);
+            let doc = new DocumentDataEntity(documentResult);
 
-            let yearDataStart = hit['_source']['startDate'];
-            let yearDataEnd = hit['_source']['startDate'];
+            let yearDataStart = documentResult['_source']['startDate'];
+            let yearDataEnd = documentResult['_source']['startDate'];
 
             let dStart = new Date(yearDataStart);
             let dEnd = new Date(yearDataEnd);
@@ -63,8 +64,8 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
             /*
              AUTHORS
              */
-            let authorsData = hit['_source']['authors'];
-            
+            let authorsData = documentResult['_source']['authors'];
+
 
             // No authors available
             if (typeof authorsData === "undefined")
@@ -80,7 +81,6 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
             }
 
             authorsData.forEach((authorData) => {
-                console.log(hit);
                 let author = <AuthorDataEntity>AuthorDataEntity.getByEmailAddress(authorData['email']);
                 if (author === null)
                     author = new AuthorDataEntity(authorData);
@@ -88,7 +88,6 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
                 let docAuthorConnection = new DocAuthorConnection(doc, author, {});
                 doc.addConnection(docAuthorConnection);
                 author.addConnection(docAuthorConnection);
-
 
                 /*
                  AFFILIATIONS
@@ -123,9 +122,11 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
 
             });
         });
-
-        console.log(DocumentDataEntity.getDataList());
-        console.log(AuthorDataEntity.getDataList());
-        console.log(AffiliationDataEntity.getDataList());
+        if (dataDebug) {
+            UiService.consolelog(DocumentDataEntity.getDataList(), this, null, 1);
+            UiService.consolelog(AuthorDataEntity.getDataList(), this, null, 1);
+            UiService.consolelog(AffiliationDataEntity.getDataList(), this, null, 1);
+            UiService.consolelog(YearDataEntity.getDataList(), this, null, 1);
+        }
     }
 }
