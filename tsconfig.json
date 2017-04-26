@@ -9,5 +9,8 @@
     "removeComments": false,
     "noImplicitAny": false,
     "outDir": "build"
-  }
+  },
+  "include": [
+    "**/*"
+  ]
 }
