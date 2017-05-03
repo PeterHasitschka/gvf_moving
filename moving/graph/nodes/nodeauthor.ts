@@ -9,7 +9,7 @@ export class NodeAuthor extends NodeMoving {
     constructor(x:number, y:number, dataEntity:DataAbstract, plane:Plane, options:Object) {
         super(x, y, dataEntity, plane, options);
 
-        this.labelIconPath = "/moving/assets/icon_author.png";
+        this.labelIconPath = "moving/assets/icon_author.png";
 
         this.color = 0xffe6d5;
         this.highlightColor = 0xffc4B3;

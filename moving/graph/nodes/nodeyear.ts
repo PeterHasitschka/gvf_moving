@@ -17,4 +17,5 @@ export class NodeYear extends NodeMoving {
         this.labelZoomLevelMin = 1;
         this.labelText = '\'' + dataEntity.getData("year").toString().substring(2, 4);
     }
+
 }

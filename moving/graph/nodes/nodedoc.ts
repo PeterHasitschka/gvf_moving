@@ -8,7 +8,7 @@ export class NodeDoc extends NodeMoving {
     constructor(x:number, y:number, dataEntity:DataAbstract, plane:Plane, options:Object) {
         super(x, y, dataEntity, plane, options);
 
-        this.labelIconPath = "/moving/assets/icon_doc.png";
+        this.labelIconPath = "moving/assets/icon_doc.png";
 
 
         this.color = 0xaaeeff;
