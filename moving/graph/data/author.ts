@@ -26,7 +26,7 @@ export class AuthorDataEntity extends PersonDataEntity {
     }
 
     public getAffiliations():AffiliationDataEntity[] {
-        return this.getConnectedNodeTypesByType(AffiliationDataEntity);
+        return this.getConnectedDataEntititesByType(AffiliationDataEntity);
     }
 
 }
