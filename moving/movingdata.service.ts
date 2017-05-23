@@ -10,6 +10,10 @@ export class MovingDataService {
     private data;
     private dataSource:MovingDataSourceInterace;
 
+    private maxResultsToLoad = 200;
+    private resultsNumShouldbeLoaded = null;
+
+
     constructor() {
         this.data = {posts: [], tags: [], connections: []};
         this.http = DataService.getInstance().getHttp();
@@ -17,7 +21,7 @@ export class MovingDataService {
             return MovingDataService.getInstance();
         }
 
-        this.dataSource = new MovingDataSourceMovingPlatform(null);
+        this.dataSource = new MovingDataSourceMovingPlatform();
     }
 
     static getInstance() {
@@ -45,6 +49,18 @@ export class MovingDataService {
 
     getDataSource() {
         return this.dataSource;
+    }
+
+    getMaxResultsToLoad() {
+        return this.maxResultsToLoad;
+    }
+
+    setResultNumShouldBeLoaded(num) {
+        this.resultsNumShouldbeLoaded = num;
+    }
+
+    getResultNumShouldBeLoaded() {
+        return this.resultsNumShouldbeLoaded;
     }
 
 }

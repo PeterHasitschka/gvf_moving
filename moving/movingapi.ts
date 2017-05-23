@@ -34,6 +34,22 @@ export class MovingPluginApi implements GvfPluginInterface {
             // PluginApi.addPlane('MOVING Graph Navigation', MovingAutoGraph);
 
 
+            if (MovingDataService.getInstance().getResultNumShouldBeLoaded() > MovingDataService.getInstance().getMaxResultsToLoad()) {
+                UiService.getInstance().addSideInfoElement(new SideInfoModel(
+                    '',
+                    SideInfoPositions.Right,
+                    SideInfoContentType.Text,
+                    {
+                        text: "<div class='alert alert-warning'><strong>Warning:</strong> In this demonstration only <strong>" + MovingDataService.getInstance().getMaxResultsToLoad() +
+                        " results of " + MovingDataService.getInstance().getResultNumShouldBeLoaded() +
+                        " were loaded.</strong></div>"
+                    },
+                    1,
+                    true
+                    )
+                );
+            }
+
         });
 
 
@@ -49,8 +65,9 @@ export class MovingPluginApi implements GvfPluginInterface {
             },
             1
             )
-        )
-        ;
+        );
+
+
     }
 
     /**

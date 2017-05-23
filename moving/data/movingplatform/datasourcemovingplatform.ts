@@ -8,10 +8,10 @@ import {AuthorAffiliationConnection} from "../../graph/data/connections/authoraf
 import {YearDataEntity} from "../../graph/data/year";
 import {DocYearConnection} from "../../graph/data/connections/docyear";
 import {GraphVisConfig} from "../../../gvfcore/components/graphvis/config";
+import {MovingDataService} from "../../movingdata.service";
 export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace {
 
-
-    constructor(private dataContainer) {
+    constructor() {
     }
 
     fetchDataFromServer() {
@@ -23,105 +23,119 @@ export class MovingDataSourceMovingPlatform implements MovingDataSourceInterace 
         return null;
     }
 
-    setData(data) {
+    setData(documentResults) {
 
-        UiService.consolelog(["Setting data", data], this);
+        UiService.consolelog(["Setting data", documentResults], this);
         let dataDebug = GraphVisConfig.scene.debug.dataDebug;
         /*
          DOCUMENTS
          */
-        let documentResults = data;
-        documentResults.forEach((documentResult:Object) => {
+
+        let BreakException = {};
 
 
-            let doc = new DocumentDataEntity(documentResult);
+        MovingDataService.getInstance().setResultNumShouldBeLoaded(documentResults.length);
+        try {
+            documentResults.forEach((documentResult:Object, resCount) => {
 
-            let yearDataStart = documentResult['_source']['startDate'];
-            let yearDataEnd = documentResult['_source']['startDate'];
-
-            let dStart = new Date(yearDataStart);
-            let dEnd = new Date(yearDataEnd);
-
-            if (!dEnd.getFullYear())
-                dEnd = dStart;
-
-            let yStart = dStart.getFullYear();
-            let yEnd = dEnd.getFullYear();
-
-            if (yStart) {
-                for (var currY = yStart; currY <= yEnd; currY++) {
-                    let year = YearDataEntity.getByYear(currY);
-                    if (!year)
-                        year = new YearDataEntity(currY);
-
-                    let docYearConn = new DocYearConnection(doc, year, {});
-                    doc.addConnection(docYearConn);
-                    year.addConnection(docYearConn);
+                if (resCount >= MovingDataService.getInstance().getMaxResultsToLoad()) {
+                    throw BreakException;
                 }
-            }
 
 
-            /*
-             AUTHORS
-             */
-            let authorsData = documentResult['_source']['authors'];
+                let doc = new DocumentDataEntity(documentResult);
 
+                let yearDataStart = documentResult['_source']['startDate'];
+                let yearDataEnd = documentResult['_source']['startDate'];
 
-            // No authors available
-            if (typeof authorsData === "undefined")
-                authorsData = [];
+                let dStart = new Date(yearDataStart);
+                let dEnd = new Date(yearDataEnd);
 
-            /*
-             Handling the current data structure which does not meet the common data model
-             */
-            if (!Array.isArray(authorsData)) {
-                console.warn("The AUTHORS data does not meet the common data model. Not an array. Assuming object " +
-                    "Handling it as a single author.", authorsData, typeof authorsData);
-                authorsData = [authorsData];
-            }
+                if (!dEnd.getFullYear())
+                    dEnd = dStart;
 
-            authorsData.forEach((authorData) => {
-                let author = <AuthorDataEntity>AuthorDataEntity.getByEmailAddress(authorData['email']);
-                if (author === null)
-                    author = new AuthorDataEntity(authorData);
+                let yStart = dStart.getFullYear();
+                let yEnd = dEnd.getFullYear();
 
-                let docAuthorConnection = new DocAuthorConnection(doc, author, {});
-                doc.addConnection(docAuthorConnection);
-                author.addConnection(docAuthorConnection);
+                if (yStart) {
+                    for (var currY = yStart; currY <= yEnd; currY++) {
+                        let year = YearDataEntity.getByYear(currY);
+                        if (!year)
+                            year = new YearDataEntity(currY);
+
+                        let docYearConn = new DocYearConnection(doc, year, {});
+                        doc.addConnection(docYearConn);
+                        year.addConnection(docYearConn);
+                    }
+                }
+
 
                 /*
-                 AFFILIATIONS
+                 AUTHORS
                  */
-                let affiliationsData = author.getData("affiliations");
+                let authorsData = documentResult['_source']['authors'];
 
-                if (affiliationsData === null)
-                    return;
 
-                // No affiliations available
-                if (typeof affiliationsData === "undefined")
-                    affiliationsData = [];
+                // No authors available
+                if (typeof authorsData === "undefined")
+                    authorsData = [];
 
                 /*
                  Handling the current data structure which does not meet the common data model
                  */
-                if (!Array.isArray(affiliationsData)) {
-                    console.warn("The AFFILIATIONS data does not meet the common data model. Not an array. Assuming object " +
-                        "Handling it as a single affiliation.", affiliationsData, typeof affiliationsData);
-                    affiliationsData = [affiliationsData];
+                if (!Array.isArray(authorsData)) {
+                    console.warn("The AUTHORS data does not meet the common data model. Not an array. Assuming object " +
+                        "Handling it as a single author.", authorsData, typeof authorsData);
+                    authorsData = [authorsData];
                 }
 
-                affiliationsData.forEach((affiliationData) => {
-                    let aff = AffiliationDataEntity.getByName(affiliationData['name']);
-                    if (aff === null)
-                        aff = new AffiliationDataEntity(affiliationData);
+                authorsData.forEach((authorData) => {
+                    let author = <AuthorDataEntity>AuthorDataEntity.getByEmailAddress(authorData['email']);
+                    if (author === null)
+                        author = new AuthorDataEntity(authorData);
 
-                    let authorAffConnection = new AuthorAffiliationConnection(author, aff, {});
-                    author.addConnection(authorAffConnection);
-                    aff.addConnection(authorAffConnection);
+                    let docAuthorConnection = new DocAuthorConnection(doc, author, {});
+                    doc.addConnection(docAuthorConnection);
+                    author.addConnection(docAuthorConnection);
+
+                    /*
+                     AFFILIATIONS
+                     */
+                    let affiliationsData = author.getData("affiliations");
+
+                    if (affiliationsData === null)
+                        return;
+
+                    // No affiliations available
+                    if (typeof affiliationsData === "undefined")
+                        affiliationsData = [];
+
+                    /*
+                     Handling the current data structure which does not meet the common data model
+                     */
+                    if (!Array.isArray(affiliationsData)) {
+                        console.warn("The AFFILIATIONS data does not meet the common data model. Not an array. Assuming object " +
+                            "Handling it as a single affiliation.", affiliationsData, typeof affiliationsData);
+                        affiliationsData = [affiliationsData];
+                    }
+
+                    affiliationsData.forEach((affiliationData) => {
+                        let aff = AffiliationDataEntity.getByName(affiliationData['name']);
+                        if (aff === null)
+                            aff = new AffiliationDataEntity(affiliationData);
+
+                        let authorAffConnection = new AuthorAffiliationConnection(author, aff, {});
+                        author.addConnection(authorAffConnection);
+                        aff.addConnection(authorAffConnection);
+                    });
+
                 });
-
             });
-        });
+        } catch (e) {
+            if (e !== BreakException)
+                throw e;
+        }
+
         if (dataDebug) {
             UiService.consolelog(DocumentDataEntity.getDataList(), this, null, 1);
             UiService.consolelog(AuthorDataEntity.getDataList(), this, null, 1);
