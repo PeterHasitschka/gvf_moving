@@ -35,7 +35,13 @@
     "node-dijkstra": "2.4.1",
     "ngraph.graph": "0.0.12",
     "ngraph.physics.simulator": "0.1.1",
-    "ngraph.forcelayout": "0.1.2"
+    "ngraph.forcelayout": "0.1.2",
+    "ngraph.expose" : "^0.0.0",
+    "ngraph.events" : "^0.0.4",
+    "ngraph.merge" : "^0.0.1",
+    "ngraph.random" : "^0.0.1",
+    "ngraph.physics.primitives" : "^0.0.7",
+    "ngraph.quadtreebh" : "^0.0.4"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
