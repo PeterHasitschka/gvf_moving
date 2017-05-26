@@ -12,4 +12,12 @@ export abstract class NodeMoving extends NodeAbstract {
         this.labelType = GRAPH_ELEMENT_LABEL_TYPE.ICON;
         this.labelIconSize = 10;
     }
+
+    /**
+     * Create onion on click (definition May 17 for MOVING review Demo)
+     */
+    public onClick():void {
+        super.onClick();
+        this.plane.createOnionVis();
+    }
 }
