@@ -74,7 +74,7 @@ export class CompleteMovingGraph extends GraphAbstract {
                         this.plane.getGraphScene().addObject(affiliationNode);
                     }
 
-                    let edge = new EdgeMovingAuthorAffiliation(authorNode,affiliationNode, this.plane);
+                    let edge = new EdgeMovingAuthorAffiliation(authorNode, affiliationNode, this.plane);
                     affiliationNode.addEdge(edge);
                     authorNode.addEdge(edge);
                     this.edges.push(edge);
@@ -96,7 +96,7 @@ export class CompleteMovingGraph extends GraphAbstract {
                 console.log("Finished calculating layout");
                 this.plane.getGraphScene().render();
                 this.addEventListeners();
-            }.bind(this));
+            }.bind(this), null);
         });
     }
 }
