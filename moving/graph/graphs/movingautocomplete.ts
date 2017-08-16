@@ -57,7 +57,8 @@ export class MovingAutoGraph extends AutoGraph {
                 dataConnection: DocYearConnection,
                 edge: EdgeMovingDocYear
             }
-        ]
+        ],
+        paths: []
     };
 
     constructor(protected plane:Plane) {

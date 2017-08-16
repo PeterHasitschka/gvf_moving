@@ -30,7 +30,8 @@ export class MovingAutoDocAffGraph extends AutoGraph {
                 sourceNodeType: NodeDoc,
                 edge: EdgeBasic
             }
-        ]
+        ],
+        paths: []
     };
 
     /**
