@@ -58,7 +58,6 @@ export class MovingAutoDocAffGraph extends AutoGraph {
     }
 
 
-
     constructor(protected plane:Plane) {
         super(plane);
         this.layoutClass = GraphLayoutFdlCompleteMovingGraph;
