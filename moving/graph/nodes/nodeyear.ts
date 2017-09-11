@@ -6,11 +6,12 @@ import {YearDataEntity} from "../data/year";
 export class NodeYear extends NodeMoving {
 
     public static IDENTIFIER = "Node Year";
+    public static NODE_COLOR:number = 0xD7191C;
 
     constructor(x:number, y:number, dataEntity:YearDataEntity, plane:Plane, options:Object) {
         super(x, y, dataEntity, plane, options);
-        this.color = 0xFF7171;
-        this.highlightColor = 0xDC6262;
+        this.color = NodeYear.NODE_COLOR;
+        this.highlightColor = 0x008837;
         this.setColor(this.color);
         this.name = NodeYear.IDENTIFIER;
 

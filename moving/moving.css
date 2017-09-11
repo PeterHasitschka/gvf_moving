@@ -15,17 +15,17 @@
 }
 
 .moving-legend-documentnode {
-    background: #aaeeff;
+    background: #FDAE61;
 }
 
 .moving-legend-authornode {
-    background: #ffe6d5;
+    background: #ABD9E9;
 }
 
 .moving-legend-affnode {
-    background: #aaffaa;
+    background: #2C7BB6;
 }
 
 .moving-legend-yearnode {
-    background: #FF7171;
+    background: #D7191C;
 }
