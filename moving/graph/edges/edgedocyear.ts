@@ -12,7 +12,7 @@ export class EdgeMovingDocYear extends EdgeColored {
 
     protected static opacity = 0.5;
     constructor(sourceNode:NodeAbstract, destNode:NodeAbstract, plane:Plane) {
-        let color = HelperService.getInstance().colorMidPoint(NodeDoc.NODE_COLOR, NodeYear.NODE_COLOR);
+        let color = HelperService.getInstance().rgbColorMidPoint(NodeDoc.NODE_COLOR, NodeYear.NODE_COLOR);
         let rgb = HelperService.getInstance().colorHexToRGB(color);
         color = HelperService.getInstance().rgbToHex(rgb.r * 0.9, rgb.g * 0.9, rgb.b * 0.9);
         super(sourceNode, destNode, plane, color);
